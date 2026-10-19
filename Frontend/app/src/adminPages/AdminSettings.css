@@ -1,4 +1,158 @@
-/* ===== Admin Settings Styles ===== */
-.admin-settings-card {
-  border-radius: 14px;
+/* =========================================================================
+   ===== Admin Settings — Page Specific Styles ============================
+   ========================================================================= */
+
+.settings-grid {
+  animation: fadeInUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.settings-card {
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.settings-card:hover {
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.06) !important;
+}
+
+/* Icon boxes inside headers */
+.icon-box {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.bg-soft-red    { background: #fee2e2; }
+.bg-soft-yellow { background: #fef3c7; }
+.bg-soft-blue   { background: #eff6ff; }
+
+/* Role Badge */
+.role-badge {
+  background: linear-gradient(135deg, #dc2626, #ef4444) !important;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25);
+  letter-spacing: 0.02em;
+}
+
+/* Form Labels */
+.form-label {
+  color: #334155;
+  letter-spacing: 0.01em;
+}
+
+/* Disabled Input */
+.form-control:disabled {
+  background-color: #f8fafc !important;
+  color: #64748b;
+  cursor: not-allowed;
+  border-color: #e2e8f0;
+}
+
+/* Password Input Group */
+.password-group .form-control {
+  border-right: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  font-family: monospace;
+  letter-spacing: 0.1em;
+}
+
+.password-group .form-control:focus {
+  border-color: #dc2626;
+  box-shadow: inset 0 0 0 1px #dc2626;
+}
+
+.password-group .btn-outline-secondary {
+  border-color: #e2e8f0;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-left: 1px solid #e2e8f0;
+  color: #64748b;
+  background: #f8fafc;
+}
+
+.password-group .btn-outline-secondary:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+/* Standard Inputs */
+.form-control {
+  border-radius: 10px;
+  padding: 0.6rem 1rem;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+
+.form-control:focus {
+  border-color: #dc2626;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
+}
+
+/* Buttons */
+.action-btn {
+  border-radius: 10px;
+  font-weight: 600;
+  padding: 0.6rem 1.4rem;
+  transition: all 0.2s ease;
+}
+
+.action-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(220, 38, 38, 0.2);
+}
+
+/* Platform Settings Rows */
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.setting-row strong {
+  color: #1e293b;
+  font-size: 0.95rem;
+}
+
+/* Custom Badges */
+.custom-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.3rem 0.75rem;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.badge-approved { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
+.badge-neutral  { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card-body.p-4 {
+    padding: 1.25rem !important;
+  }
+  
+  .setting-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .setting-row .custom-badge {
+    align-self: flex-start;
+  }
+  
+  .action-btn {
+    width: 100%;
+    justify-content: center;
+  }
 }

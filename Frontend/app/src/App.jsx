@@ -35,9 +35,11 @@ import WorkerTracking from "./workerPages/WorkerTracking";
 
 // Admin Pages
 import AdminDashboard from "./adminPages/AdminDashboard";
-// import ManageUsers from "./adminPages/ManageUsers";
-// import ManageWorkers from "./adminPages/ManageWorkers";
-// import ManageServices from "./adminPages/ManageServices";
+import ManageUsers from "./adminPages/ManageUsers";
+import ManageWorkers from "./adminPages/ManageWorkers";
+import ManageServices from "./adminPages/ManageServices";
+import AdminAnalytics from "./adminPages/AdminAnalytics";
+import AdminSettings from "./adminPages/AdminSettings";
 
 import "./App.css";
 
@@ -278,7 +280,7 @@ function App() {
           }
         />
 
-        {/*
+      
 
         <Route
           path="/admin/users"
@@ -307,7 +309,23 @@ function App() {
           }
         />
 
-        */}
+       <Route
+          path="/admin/analytics"
+          element={
+            <ProtectedRoute allowedRole="ADMIN">
+              <AdminAnalytics />
+                </ProtectedRoute>
+          }
+        />
+       
+               <Route
+                 path="/admin/settings"
+                 element={
+                   <ProtectedRoute allowedRole="ADMIN">
+                     <AdminSettings />
+                   </ProtectedRoute>
+                 }
+               />
 
         {/* ---------- Default ---------- */}
 

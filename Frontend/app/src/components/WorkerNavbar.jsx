@@ -1,29 +1,90 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import { LoginContext } from "../App";
 import smartServeLogo from "../assets/smartserve-logo.png";
 import "./WorkerNavbar.css";
 
+/* ===== Zero-Dependency High-Clarity Vector SVGs ===== */
+const Icons = {
+  Dashboard: () => (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="7" height="7" rx="1.5" />
+      <rect x="14" y="3" width="7" height="7" rx="1.5" />
+      <rect x="14" y="14" width="7" height="7" rx="1.5" />
+      <rect x="3" y="14" width="7" height="7" rx="1.5" />
+    </svg>
+  ),
+  Requests: () => (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="22 12 16 12 14 15 10 15 8 12 2 12" />
+      <path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" />
+    </svg>
+  ),
+  Profile: () => (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
+    </svg>
+  ),
+  ChevronLeft: () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+      <polyline points="15 18 9 12 15 6" />
+    </svg>
+  ),
+  Logout: () => (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+      <polyline points="16 17 21 12 16 7" />
+      <line x1="21" y1="12" x2="9" y2="12" />
+    </svg>
+  ),
+  Menu: () => (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="3" y1="12" x2="21" y2="12" />
+      <line x1="3" y1="6" x2="21" y2="6" />
+      <line x1="3" y1="18" x2="21" y2="18" />
+    </svg>
+  )
+};
+
 function WorkerNavbar() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { logout } = useContext(LoginContext);
 
-  const [collapsed, setCollapsed] = useState(false);
+  // Persist collapsed state across reloads
+  const [collapsed, setCollapsed] = useState(() => {
+    return localStorage.getItem("worker_navbar_collapsed") === "true";
+  });
   const [mobileOpen, setMobileOpen] = useState(false);
   const [workerName, setWorkerName] = useState("Worker");
 
   useEffect(() => {
-    const user = JSON.parse(sessionStorage.getItem("user") || "null");
-    if (user) {
-      setWorkerName(user.full_name || user.fullName || "Worker");
+    try {
+      const user = JSON.parse(sessionStorage.getItem("user") || "null");
+      if (user) {
+        setWorkerName(user.full_name || user.fullName || "Worker");
+      }
+    } catch {
+      // Keep default
     }
   }, []);
 
-  // ===========================================================
-  // AVATAR INITIALS
-  // Rendered as text inside the avatar circle so the worker is
-  // always identifiable even if an icon font fails to load.
-  // ===========================================================
+  // Close mobile drawer on navigation
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [location.pathname]);
+
+  // Close on Escape key
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [mobileOpen]);
+
   const workerInitials =
     workerName
       .trim()
@@ -33,171 +94,139 @@ function WorkerNavbar() {
       .join("") || "W";
 
   const handleLogout = () => {
-    logout();
+    if (logout) logout();
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("user");
     navigate("/login", { replace: true });
   };
 
-  // ===========================================================
-  // HEADER CONTROL — dual purpose, single source of truth
-  // Desktop: toggles the collapsed/expanded rail width.
-  // Mobile (drawer open): closes the drawer instead. The
-  // external hamburger button is not rendered at all while the
-  // drawer is open, so there is only ever ONE visible control.
-  // ===========================================================
   const handleHeaderToggle = () => {
     if (mobileOpen) {
       setMobileOpen(false);
     } else {
-      setCollapsed(!collapsed);
+      const next = !collapsed;
+      setCollapsed(next);
+      localStorage.setItem("worker_navbar_collapsed", String(next));
     }
   };
-
-  // ===========================================================
-  // CLOSE ON ESCAPE (mobile drawer)
-  // ===========================================================
-  useEffect(() => {
-    if (!mobileOpen) return;
-
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") {
-        setMobileOpen(false);
-      }
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [mobileOpen]);
 
   const links = [
     {
       to: "/worker/dashboard",
-      icon: "bi-grid-1x2-fill",
+      icon: Icons.Dashboard,
       label: "Dashboard"
     },
     {
       to: "/worker/requests",
-      icon: "bi-inbox-fill",
+      icon: Icons.Requests,
       label: "My Requests"
     },
     {
       to: "/worker/profile",
-      icon: "bi-person-workspace",
+      icon: Icons.Profile,
       label: "Profile"
-    },
+    }
   ];
 
   return (
     <>
-      {/* Mobile Toggle — only rendered while the drawer is
-          closed, so it can never sit on top of the open drawer
-          or duplicate the header's close control. */}
+      {/* Mobile Drawer Toggle */}
       {!mobileOpen && (
         <button
           className="sidebar-mobile-toggle"
           onClick={() => setMobileOpen(true)}
-          aria-label="Open navigation"
-          aria-expanded={false}
+          aria-label="Open navigation menu"
         >
-          <span className="wave-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M2 6.5q3-3 6 0t6 0 6 0" />
-              <path d="M2 12q3-3 6 0t6 0 6 0" />
-              <path d="M2 17.5q3-3 6 0t6 0 6 0" />
-            </svg>
-          </span>
+          <Icons.Menu />
         </button>
       )}
 
+      {/* Backdrop */}
       <div
         className={`sidebar-backdrop ${mobileOpen ? "active" : ""}`}
         onClick={() => setMobileOpen(false)}
         aria-hidden="true"
-      ></div>
+      />
 
+      {/* Main Sidebar */}
       <aside
         className={`worker-navbar ${
           collapsed ? "collapsed" : ""
         } ${mobileOpen ? "mobile-open" : ""}`}
       >
-        {/* Brand */}
-        <div className="sidebar-header">
-          <Link
-            className="sidebar-brand"
-            to="/worker/dashboard"
-            onClick={() => setMobileOpen(false)}
-          >
-            <span className="sidebar-brand-logo">
-              <img src={smartServeLogo} alt="SmartServe" />
-            </span>
+        {/* Top Header & Worker Info */}
+        <div className="sidebar-top-section">
+          <div className="sidebar-header">
+            <Link
+              className="sidebar-brand"
+              to="/worker/dashboard"
+              onClick={() => setMobileOpen(false)}
+            >
+              <div className="sidebar-brand-logo">
+                <img src={smartServeLogo} alt="SmartServe" />
+              </div>
+              <span className="sidebar-brand-text">SmartServe</span>
+            </Link>
 
-            <span className="sidebar-brand-text">SmartServe</span>
-          </Link>
-
-          <button
-            className="collapse-btn"
-            onClick={handleHeaderToggle}
-            aria-label={
-              mobileOpen
-                ? "Close navigation"
-                : collapsed
-                  ? "Expand sidebar"
-                  : "Collapse sidebar"
-            }
-            aria-expanded={mobileOpen ? true : undefined}
-          >
-            <i
-              className={`bi ${
-                collapsed ? "bi-chevron-right" : "bi-chevron-left"
-              }`}
-            ></i>
-          </button>
-        </div>
-
-        {/* Worker Info */}
-        <div className="sidebar-user">
-          <div className="avatar-circle" title={workerName}>
-            <span>{workerInitials}</span>
+            <button
+              className="collapse-btn"
+              onClick={handleHeaderToggle}
+              title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+              aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+            >
+              <Icons.ChevronLeft />
+            </button>
           </div>
 
-          <div className="user-meta">
-            <span className="user-name">{workerName}</span>
-            <span className="user-role">Service Provider</span>
+          <div className="sidebar-user">
+            <div className="avatar-circle" title={workerName}>
+              <span>{workerInitials}</span>
+            </div>
+            <div className="user-meta">
+              <span className="user-name">{workerName}</span>
+              <span className="user-role">Service Provider</span>
+            </div>
           </div>
         </div>
 
-        {/* Navigation — active state comes from React Router's
-            NavLink (exact match via `end`), matching the original
-            strict-equality behavior but recomputing correctly on
-            every route change. No manual active-item state. */}
+        {/* Navigation Items */}
         <nav className="sidebar-nav">
           <ul>
-            {links.map((item) => (
-              <li key={item.to}>
-                <NavLink
-                  to={item.to}
-                  end
-                  className={({ isActive }) => (isActive ? "active" : "")}
-                  onClick={() => setMobileOpen(false)}
-                  title={item.label}
-                >
-                  <i className={`bi ${item.icon}`}></i>
-                  <span>{item.label}</span>
-                </NavLink>
-              </li>
-            ))}
+            {links.map((item) => {
+              const ItemIcon = item.icon;
+              return (
+                <li key={item.to}>
+                  <NavLink
+                    to={item.to}
+                    end
+                    data-title={item.label}
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    <div className="nav-icon">
+                      <ItemIcon />
+                    </div>
+                    <span className="nav-label">{item.label}</span>
+                  </NavLink>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
-        {/* Footer */}
+        {/* Bottom Centered Logout */}
         <div className="sidebar-footer">
           <div className="version-text">SmartServe v1.0</div>
-
-          <button className="logout-btn" onClick={handleLogout} title="Logout">
-            <i className="bi bi-box-arrow-right"></i>
-            <span>Logout</span>
+          <button
+            className="logout-btn"
+            onClick={handleLogout}
+            title="Logout"
+            aria-label="Logout"
+          >
+            <div className="logout-icon">
+              <Icons.Logout />
+            </div>
+            <span className="logout-label">Logout</span>
           </button>
         </div>
       </aside>

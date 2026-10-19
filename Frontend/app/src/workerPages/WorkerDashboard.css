@@ -1275,3 +1275,13 @@
     border: 1px solid #ddd !important;
   }
 }
+
+.btn-refresh {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;         /* Allows button to stretch to fit text */
+  min-width: max-content;
+  padding: 0.4rem 0.85rem; /* Adjust padding as needed */
+  /* ... your other existing styles ... */
+}

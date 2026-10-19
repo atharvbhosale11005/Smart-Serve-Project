@@ -7,6 +7,7 @@ const authRoutes = require("./routes/common");
 const userRoutes = require("./routes/user");
 const workerRouter = require("./routes/worker");
 const feedbackRouter = require("./routes/feedback")
+const adminRouter = require("./routes/admin");
 const app = express();
 const PORT = 3000;
 //middleware
@@ -25,6 +26,7 @@ app.use(authUser);
 app.use("/user", userRoutes);
 app.use("/worker", workerRouter);
 app.use("/feedback",feedbackRouter);
+app.use("/admin", adminRouter);
 
 //Home Route
 app.get("/", (req, res) => {
