@@ -1,0 +1,758 @@
+/* =========================================================
+   FEEDBACK PAGE - ENHANCED STYLES
+   All styles are scoped under .feedback-page
+   ========================================================= */
+
+.feedback-page {
+    min-height: 100vh;
+    width: 100%;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    background: linear-gradient(135deg, #f0f4ff 0%, #e8edf5 100%);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.feedback-page *,
+.feedback-page *::before,
+.feedback-page *::after {
+    box-sizing: border-box;
+}
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.feedback-page .feedback-container {
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+    animation: feedbackFadeIn 0.5s ease-out;
+}
+
+@keyframes feedbackFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.feedback-page .feedback-header {
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+.feedback-page .feedback-header h1 {
+    margin: 16px 0 8px;
+    font-size: 34px;
+    font-weight: 700;
+    color: #172033;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+}
+
+.feedback-page .feedback-header p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+/* =========================================================
+   BACK BUTTON
+   ========================================================= */
+
+.feedback-page .back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    background: transparent;
+    color: #2563eb;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    margin-bottom: 4px;
+}
+
+.feedback-page .back-button:hover {
+    color: #1d4ed8;
+    background: rgba(37, 99, 235, 0.08);
+    transform: translateX(-4px);
+}
+
+.feedback-page .back-button i {
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.feedback-page .back-button:hover i {
+    transform: translateX(-2px);
+}
+
+/* =========================================================
+   FEEDBACK CARD
+   ========================================================= */
+
+.feedback-page .feedback-card {
+    width: 100%;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 45px 50px 40px;
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.06),
+        0 4px 12px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(229, 231, 235, 0.5);
+    transition: all 0.3s ease;
+}
+
+/* =========================================================
+   FEEDBACK TITLE
+   ========================================================= */
+
+.feedback-page .feedback-title {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.feedback-page .feedback-title > i {
+    display: block;
+    font-size: 48px;
+    color: #f59e0b;
+    margin-bottom: 16px;
+    animation: feedbackStarPulse 2s ease-in-out infinite;
+}
+
+@keyframes feedbackStarPulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.feedback-page .feedback-title h2 {
+    margin: 0 0 8px;
+    font-size: 26px;
+    font-weight: 700;
+    color: #172033;
+    letter-spacing: -0.3px;
+}
+
+.feedback-page .feedback-title p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 15px;
+}
+
+/* =========================================================
+   STAR RATING
+   ========================================================= */
+
+.feedback-page .star-rating {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 28px 0 12px;
+}
+
+.feedback-page .star-button {
+    border: none;
+    background: transparent;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 44px;
+    color: #d1d5db;
+    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    border-radius: 8px;
+    line-height: 1;
+}
+
+.feedback-page .star-button:hover {
+    transform: scale(1.2);
+    color: #fbbf24;
+    background: rgba(251, 191, 36, 0.08);
+}
+
+.feedback-page .star-button.selected {
+    color: #f59e0b;
+    transform: scale(1.1);
+}
+
+.feedback-page .star-button.selected:hover {
+    transform: scale(1.15);
+    background: rgba(245, 158, 11, 0.12);
+}
+
+/* =========================================================
+   RATING TEXT
+   ========================================================= */
+
+.feedback-page .rating-text {
+    text-align: center;
+    font-size: 17px;
+    font-weight: 600;
+    color: #4b5563;
+    margin-bottom: 32px;
+    min-height: 28px;
+    transition: all 0.3s ease;
+}
+
+.feedback-page .rating-text:not(:empty) {
+    background: linear-gradient(135deg, #f59e0b20, #fbbf2420);
+    padding: 8px 20px;
+    border-radius: 50px;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+}
+
+/* =========================================================
+   COMMENT SECTION
+   ========================================================= */
+
+.feedback-page .comment-section {
+    position: relative;
+    margin-top: 24px;
+}
+
+.feedback-page .comment-section label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.feedback-page .comment-section textarea {
+    display: block;
+    width: 100%;
+    min-height: 160px;
+    resize: vertical;
+    padding: 16px 18px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    outline: none;
+    font-family: inherit;
+    font-size: 15px;
+    color: #1f2937;
+    background: #fafbfc;
+    transition: all 0.3s ease;
+    line-height: 1.6;
+}
+
+.feedback-page .comment-section textarea:hover {
+    border-color: #c7d0db;
+    background: #ffffff;
+}
+
+.feedback-page .comment-section textarea:focus {
+    border-color: #2563eb;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+.feedback-page .comment-section textarea::placeholder {
+    color: #9ca3af;
+}
+
+.feedback-page .character-count {
+    text-align: right;
+    margin-top: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #9ca3af;
+    transition: color 0.3s ease;
+    padding-right: 4px;
+}
+
+.feedback-page .character-count.near-limit {
+    color: #f59e0b;
+}
+
+.feedback-page .character-count.at-limit {
+    color: #ef4444;
+}
+
+/* =========================================================
+   SUBMIT BUTTON
+   ========================================================= */
+
+.feedback-page .btn-submit-feedback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 28px;
+    min-height: 52px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    gap: 10px;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.25);
+}
+
+.feedback-page .btn-submit-feedback:hover:not(:disabled) {
+    background: linear-gradient(135deg, #1d4ed8, #1e40af);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(37, 99, 235, 0.35);
+}
+
+.feedback-page .btn-submit-feedback:active:not(:disabled) {
+    transform: translateY(0px) scale(0.98);
+}
+
+.feedback-page .btn-submit-feedback:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+}
+
+.feedback-page .btn-submit-feedback i {
+    font-size: 18px;
+}
+
+.feedback-page .btn-submit-feedback .spinner-border {
+    width: 20px;
+    height: 20px;
+    border-width: 2px;
+}
+
+/* =========================================================
+   LOADING STATE
+   ========================================================= */
+
+.feedback-page .feedback-loading {
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+    gap: 20px;
+}
+
+.feedback-page .feedback-loading .spinner-border {
+    width: 48px;
+    height: 48px;
+    border: 4px solid #e5e7eb;
+    border-top-color: #2563eb;
+    border-radius: 50%;
+    animation: feedbackSpinner 0.8s linear infinite;
+}
+
+@keyframes feedbackSpinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.feedback-page .feedback-loading p {
+    margin: 0;
+    font-size: 16px;
+    color: #6b7280;
+}
+
+/* =========================================================
+   SUCCESS STATE
+   ========================================================= */
+
+.feedback-page .feedback-success {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.feedback-page .feedback-success-icon {
+    margin-bottom: 20px;
+    display: inline-block;
+    animation: feedbackSuccessBounce 0.6s ease-out;
+}
+
+@keyframes feedbackSuccessBounce {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.feedback-page .feedback-success-icon i {
+    font-size: 72px;
+    color: #22c55e;
+    filter: drop-shadow(0 4px 16px rgba(34, 197, 94, 0.3));
+}
+
+.feedback-page .feedback-success h2 {
+    margin: 0 0 10px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #172033;
+}
+
+.feedback-page .feedback-success > p {
+    color: #6b7280;
+    font-size: 16px;
+    margin: 0 0 24px;
+}
+
+/* =========================================================
+   SUBMITTED RATING
+   ========================================================= */
+
+.feedback-page .submitted-rating {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 24px 0;
+}
+
+.feedback-page .submitted-rating i {
+    font-size: 34px;
+    color: #d1d5db;
+    transition: all 0.3s ease;
+}
+
+.feedback-page .submitted-rating i.active {
+    color: #f59e0b;
+    animation: feedbackStarPop 0.4s ease-out;
+}
+
+@keyframes feedbackStarPop {
+    0% {
+        transform: scale(0);
+    }
+    60% {
+        transform: scale(1.3);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* =========================================================
+   SUBMITTED COMMENT
+   ========================================================= */
+
+.feedback-page .submitted-comment {
+    max-width: 600px;
+    margin: 24px auto;
+    padding: 20px 24px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #f9fafb, #f3f4f6);
+    border: 1px solid #e5e7eb;
+    text-align: left;
+    transition: all 0.3s ease;
+}
+
+.feedback-page .submitted-comment:hover {
+    border-color: #d1d5db;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.feedback-page .submitted-comment strong {
+    display: block;
+    margin-bottom: 8px;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.feedback-page .submitted-comment p {
+    margin: 0;
+    color: #4b5563;
+    font-size: 16px;
+    line-height: 1.6;
+    font-style: italic;
+}
+
+/* =========================================================
+   SUCCESS BUTTON
+   ========================================================= */
+
+.feedback-page .feedback-success .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 32px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.25);
+    margin-top: 8px;
+}
+
+.feedback-page .feedback-success .btn-primary:hover {
+    background: linear-gradient(135deg, #1d4ed8, #1e40af);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(37, 99, 235, 0.35);
+}
+
+.feedback-page .feedback-success .btn-primary i {
+    font-size: 18px;
+}
+
+/* =========================================================
+   MOBILE RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+    .feedback-page {
+        padding: 20px 12px;
+    }
+
+    .feedback-page .feedback-card {
+        padding: 28px 20px;
+        border-radius: 16px;
+    }
+
+    .feedback-page .feedback-header h1 {
+        font-size: 26px;
+    }
+
+    .feedback-page .feedback-header p {
+        font-size: 14px;
+    }
+
+    .feedback-page .feedback-title h2 {
+        font-size: 22px;
+    }
+
+    .feedback-page .star-button {
+        font-size: 36px;
+        padding: 6px;
+    }
+
+    .feedback-page .star-rating {
+        gap: 8px;
+    }
+
+    .feedback-page .rating-text {
+        font-size: 15px;
+    }
+
+    .feedback-page .comment-section textarea {
+        min-height: 140px;
+        font-size: 14px;
+        padding: 14px 16px;
+    }
+
+    .feedback-page .btn-submit-feedback {
+        font-size: 15px;
+        min-height: 48px;
+    }
+
+    .feedback-page .feedback-success h2 {
+        font-size: 24px;
+    }
+
+    .feedback-page .submitted-rating i {
+        font-size: 28px;
+    }
+
+    .feedback-page .feedback-success-icon i {
+        font-size: 60px;
+    }
+}
+
+@media (max-width: 480px) {
+    .feedback-page {
+        padding: 16px 10px;
+    }
+
+    .feedback-page .feedback-card {
+        padding: 20px 16px;
+        border-radius: 14px;
+    }
+
+    .feedback-page .feedback-header h1 {
+        font-size: 22px;
+    }
+
+    .feedback-page .back-button {
+        font-size: 14px;
+        padding: 6px 8px;
+    }
+
+    .feedback-page .feedback-title > i {
+        font-size: 38px;
+    }
+
+    .feedback-page .feedback-title h2 {
+        font-size: 20px;
+    }
+
+    .feedback-page .star-button {
+        font-size: 30px;
+        padding: 4px;
+    }
+
+    .feedback-page .star-rating {
+        gap: 6px;
+    }
+
+    .feedback-page .rating-text {
+        font-size: 14px;
+        margin-bottom: 24px;
+    }
+
+    .feedback-page .comment-section textarea {
+        min-height: 120px;
+        font-size: 14px;
+        padding: 12px 14px;
+    }
+
+    .feedback-page .btn-submit-feedback {
+        font-size: 14px;
+        min-height: 44px;
+        margin-top: 20px;
+    }
+
+    .feedback-page .feedback-success h2 {
+        font-size: 20px;
+    }
+
+    .feedback-page .feedback-success > p {
+        font-size: 14px;
+    }
+
+    .feedback-page .submitted-rating i {
+        font-size: 24px;
+    }
+
+    .feedback-page .submitted-comment {
+        padding: 16px 18px;
+    }
+
+    .feedback-page .submitted-comment p {
+        font-size: 14px;
+    }
+
+    .feedback-page .feedback-success-icon i {
+        font-size: 48px;
+    }
+
+    .feedback-page .feedback-success .btn-primary {
+        font-size: 14px;
+        padding: 10px 24px;
+    }
+}
+
+/* =========================================================
+   ACCESSIBILITY - FOCUS STATES
+   ========================================================= */
+
+.feedback-page .star-button:focus-visible {
+    outline: 3px solid #2563eb;
+    outline-offset: 3px;
+}
+
+.feedback-page .comment-section textarea:focus-visible {
+    outline: 3px solid #2563eb;
+    outline-offset: -2px;
+}
+
+.feedback-page .btn-submit-feedback:focus-visible {
+    outline: 3px solid #1d4ed8;
+    outline-offset: 3px;
+}
+
+.feedback-page .back-button:focus-visible {
+    outline: 3px solid #2563eb;
+    outline-offset: 2px;
+}
+
+.feedback-page .feedback-success .btn-primary:focus-visible {
+    outline: 3px solid #1d4ed8;
+    outline-offset: 3px;
+}
+
+/* =========================================================
+   ICON FALLBACKS
+   ========================================================= */
+
+.feedback-page .bi {
+    display: inline-block;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+}
+
+.feedback-page .bi-star::before { content: "☆"; }
+.feedback-page .bi-star-fill::before { content: "★"; }
+.feedback-page .bi-arrow-left::before { content: "←"; }
+.feedback-page .bi-send-fill::before { content: "✉"; }
+.feedback-page .bi-check-circle-fill::before { content: "✓"; }
+
+/* =========================================================
+   UTILITY OVERRIDES
+   ========================================================= */
+
+.feedback-page .btn {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+}
+
+.feedback-page .mt-4 {
+    margin-top: 1.5rem !important;
+}
+
+.feedback-page .me-2 {
+    margin-right: 0.5rem !important;
+}
+
+/* Smooth scroll behavior for the page */
+.feedback-page {
+    scroll-behavior: smooth;
+}
+
+/* Prevent text selection on buttons */
+.feedback-page .btn-submit-feedback,
+.feedback-page .star-button,
+.feedback-page .back-button {
+    user-select: none;
+}

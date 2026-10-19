@@ -1,0 +1,799 @@
+/* =========================================================
+   Login Page - Blue & White Theme
+   SmartServe Login UI
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* =========================================================
+   Root Variables - Blue & White Theme
+   ========================================================= */
+:root {
+  --primary-blue-900: #0a1628;
+  --primary-blue-800: #0f1f3a;
+  --primary-blue-700: #162a4a;
+  --primary-blue-600: #1a3a5a;
+  --primary-blue-500: #2563eb;
+  --primary-blue-400: #3b82f6;
+  --primary-blue-300: #60a5fa;
+  --primary-blue-200: #93bbfc;
+  --primary-blue-100: #dbeafe;
+  --primary-blue-50: #eff6ff;
+  
+  --white: #ffffff;
+  --white-smoke: #f8fafc;
+  --grey-50: #f9fafb;
+  --grey-100: #f3f4f6;
+  --grey-200: #e5e7eb;
+  --grey-300: #d1d5db;
+  --grey-400: #9ca3af;
+  --grey-500: #6b7280;
+  --grey-600: #4b5563;
+  --grey-700: #374151;
+  --grey-800: #1f2937;
+  --grey-900: #111827;
+  
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --shadow-blue: 0 4px 20px rgba(37, 99, 235, 0.25);
+  --shadow-blue-hover: 0 8px 35px rgba(37, 99, 235, 0.35);
+  
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+}
+
+/* =========================================================
+   Login Page Container
+   ========================================================= */
+.login-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #eef2ff 0%, #dbeafe 30%, #bfdbfe 60%, #93bbfc 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated background shapes */
+.login-page::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: floatBg 20s ease-in-out infinite;
+}
+
+.login-page::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.05) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: floatBg 25s ease-in-out infinite reverse;
+}
+
+@keyframes floatBg {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -30px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+}
+
+/* =========================================================
+   Login Card
+   ========================================================= */
+.login-page .card {
+  background: var(--white);
+  border-radius: var(--radius-xl) !important;
+  box-shadow: var(--shadow-2xl) !important;
+  border: none !important;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Card accent border */
+.login-page .card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-blue-500), var(--primary-blue-300), var(--primary-blue-500));
+  background-size: 200% 100%;
+  animation: shimmerBorder 3s ease-in-out infinite;
+}
+
+@keyframes shimmerBorder {
+  0%, 100% { background-position: 0% 0%; }
+  50% { background-position: 100% 0%; }
+}
+
+.login-page .card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 60px rgba(37, 99, 235, 0.15) !important;
+}
+
+.login-page .card-body {
+  padding: 2.5rem 2.5rem !important;
+}
+
+/* =========================================================
+   Header / Icon
+   ========================================================= */
+.login-page .text-center {
+  text-align: center !important;
+}
+
+.login-page .icon-wrapper {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--primary-blue-50), var(--primary-blue-100));
+  padding: 1rem 1.2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.12);
+  margin-bottom: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.login-page .icon-wrapper:hover {
+  transform: scale(1.05) rotate(-5deg);
+  box-shadow: 0 6px 30px rgba(37, 99, 235, 0.2);
+}
+
+.login-page .bi-shield-lock {
+  font-size: 3rem;
+  color: var(--primary-blue-500);
+  display: block;
+}
+
+.login-page .card-title {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--grey-900);
+  margin-top: 0.75rem;
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.01em;
+}
+
+.login-page .card-subtitle {
+  color: var(--grey-500);
+  font-size: 0.95rem;
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
+/* =========================================================
+   Form Floating Labels
+   ========================================================= */
+.form-floating {
+  position: relative;
+  margin-bottom: 1.25rem;
+}
+
+.form-floating > .form-control {
+  height: 58px;
+  padding: 1rem 1rem 0.5rem;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--grey-200);
+  background: var(--white);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--grey-900);
+  transition: all 0.3s ease;
+  width: 100%;
+  font-family: var(--font-body);
+}
+
+.form-floating > .form-control:focus {
+  border-color: var(--primary-blue-500);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+  outline: none;
+}
+
+.form-floating > .form-control:hover:not(:focus) {
+  border-color: var(--primary-blue-300);
+}
+
+.form-floating > .form-control::placeholder {
+  color: transparent;
+  opacity: 0;
+}
+
+.form-floating > .form-control:focus::placeholder {
+  color: var(--grey-400);
+  opacity: 1;
+}
+
+.form-floating > label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  padding: 1rem 1rem;
+  pointer-events: none;
+  border: none;
+  background: transparent;
+  color: var(--grey-500);
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  font-family: var(--font-body);
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label {
+  transform: scale(0.85) translateY(-0.6rem) translateX(0.15rem);
+  color: var(--primary-blue-500);
+  padding-top: 0.5rem;
+  height: auto;
+  font-weight: 600;
+}
+
+.form-floating > .form-control:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px var(--white) inset !important;
+  -webkit-text-fill-color: var(--grey-900) !important;
+}
+
+.form-floating > .form-control:-webkit-autofill ~ label {
+  transform: scale(0.85) translateY(-0.6rem) translateX(0.15rem);
+  color: var(--primary-blue-500);
+}
+
+/* =========================================================
+   Login Button
+   ========================================================= */
+.login-page .btn-primary {
+  background: linear-gradient(135deg, var(--primary-blue-500) 0%, var(--primary-blue-600) 100%);
+  border: none;
+  padding: 0.9rem;
+  font-weight: 600;
+  font-size: 1.05rem;
+  border-radius: var(--radius-md);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: var(--shadow-blue);
+  height: 56px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  color: var(--white);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-page .btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.login-page .btn-primary:active::after {
+  width: 300px;
+  height: 300px;
+}
+
+.login-page .btn-primary:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: var(--shadow-blue-hover);
+  background: linear-gradient(135deg, var(--primary-blue-600), var(--primary-blue-700));
+}
+
+.login-page .btn-primary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* =========================================================
+   Divider
+   ========================================================= */
+.login-page .divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 1.5rem 0;
+  gap: 1rem;
+}
+
+.login-page .divider::before,
+.login-page .divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--grey-200), transparent);
+}
+
+.login-page .divider span {
+  color: var(--grey-400);
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0 0.5rem;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   Register Buttons
+   ========================================================= */
+.login-page .btn-outline-primary {
+  border: 2px solid var(--primary-blue-500);
+  border-radius: var(--radius-md);
+  padding: 0.7rem;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  color: var(--primary-blue-500);
+  background: transparent;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.login-page .btn-outline-primary:hover {
+  background: var(--primary-blue-500);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-blue);
+  text-decoration: none;
+}
+
+.login-page .btn-outline-primary:active {
+  transform: translateY(0);
+}
+
+.login-page .btn-outline-success {
+  border: 2px solid #059669;
+  border-radius: var(--radius-md);
+  padding: 0.7rem;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  color: #059669;
+  background: transparent;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.login-page .btn-outline-success:hover {
+  background: #059669;
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(5, 150, 105, 0.3);
+  text-decoration: none;
+}
+
+.login-page .btn-outline-success:active {
+  transform: translateY(0);
+}
+
+.login-page .btn-outline-primary i,
+.login-page .btn-outline-success i {
+  font-size: 1.1rem;
+}
+
+/* =========================================================
+   Back to Home Link
+   ========================================================= */
+.login-page .btn-link {
+  color: var(--grey-500);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: auto;
+  font-size: 0.95rem;
+  font-family: var(--font-body);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.login-page .btn-link:hover {
+  color: var(--primary-blue-500);
+  transform: translateX(-4px);
+}
+
+/* =========================================================
+   Text Content
+   ========================================================= */
+.login-page .text-center p {
+  text-align: center !important;
+  color: var(--grey-600);
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.login-page .text-center .mb-2 {
+  text-align: center !important;
+}
+
+/* =========================================================
+   Grid / Layout
+   ========================================================= */
+.login-page .d-grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.login-page .d-grid .btn {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+}
+
+.login-page .gap-2 {
+  gap: 0.75rem;
+}
+
+.login-page .mt-3 {
+  margin-top: 1rem;
+}
+
+.login-page .mt-4 {
+  margin-top: 1.5rem;
+}
+
+/* =========================================================
+   Responsive Design
+   ========================================================= */
+
+/* Tablets & smaller laptops */
+@media (max-width: 992px) {
+  .login-page .card-body {
+    padding: 2rem 2rem !important;
+  }
+  
+  .login-page .card {
+    max-width: 420px;
+  }
+}
+
+/* Tablets & large phones */
+@media (max-width: 768px) {
+  .login-page {
+    padding: 1.5rem;
+  }
+  
+  .login-page .card-body {
+    padding: 1.75rem 1.75rem !important;
+  }
+  
+  .login-page .card-title {
+    font-size: 1.5rem;
+  }
+  
+  .login-page .bi-shield-lock {
+    font-size: 2.5rem;
+  }
+  
+  .login-page .icon-wrapper {
+    padding: 0.8rem 1rem;
+  }
+  
+  .form-floating > .form-control {
+    height: 52px;
+    font-size: 0.95rem;
+    padding: 0.9rem 1rem 0.4rem;
+  }
+  
+  .form-floating > label {
+    font-size: 0.95rem;
+    padding: 0.9rem 1rem;
+  }
+  
+  .form-floating > .form-control:focus ~ label,
+  .form-floating > .form-control:not(:placeholder-shown) ~ label {
+    transform: scale(0.83) translateY(-0.5rem) translateX(0.1rem);
+  }
+  
+  .login-page .btn-primary {
+    height: 50px;
+    font-size: 0.95rem;
+    padding: 0.7rem;
+  }
+  
+  .login-page .btn-outline-primary,
+  .login-page .btn-outline-success {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+  }
+  
+  .login-page .card-subtitle {
+    font-size: 0.85rem;
+  }
+}
+
+/* Small phones */
+@media (max-width: 576px) {
+  .login-page {
+    padding: 1rem;
+  }
+  
+  .login-page .card {
+    border-radius: var(--radius-lg) !important;
+  }
+  
+  .login-page .card-body {
+    padding: 1.5rem 1.25rem !important;
+  }
+  
+  .login-page .card::before {
+    height: 3px;
+  }
+  
+  .login-page .bi-shield-lock {
+    font-size: 2rem;
+  }
+  
+  .login-page .icon-wrapper {
+    padding: 0.6rem 0.8rem;
+    border-radius: var(--radius-md);
+  }
+  
+  .login-page .card-title {
+    font-size: 1.3rem;
+    margin-top: 0.5rem;
+  }
+  
+  .login-page .card-subtitle {
+    font-size: 0.8rem;
+  }
+  
+  .form-floating {
+    margin-bottom: 1rem;
+  }
+  
+  .form-floating > .form-control {
+    height: 48px;
+    font-size: 0.9rem;
+    padding: 0.8rem 0.8rem 0.3rem;
+    border-radius: var(--radius-sm);
+  }
+  
+  .form-floating > label {
+    font-size: 0.9rem;
+    padding: 0.8rem 0.8rem;
+  }
+  
+  .form-floating > .form-control:focus ~ label,
+  .form-floating > .form-control:not(:placeholder-shown) ~ label {
+    transform: scale(0.8) translateY(-0.4rem) translateX(0.05rem);
+    font-size: 0.8rem;
+    padding-top: 0.3rem;
+  }
+  
+  .login-page .btn-primary {
+    height: 46px;
+    font-size: 0.9rem;
+    padding: 0.6rem;
+    border-radius: var(--radius-sm);
+  }
+  
+  .login-page .btn-outline-primary,
+  .login-page .btn-outline-success {
+    font-size: 0.85rem;
+    padding: 0.5rem;
+    border-radius: var(--radius-sm);
+  }
+  
+  .login-page .divider {
+    margin: 1rem 0;
+  }
+  
+  .login-page .divider span {
+    font-size: 0.75rem;
+  }
+  
+  .login-page .text-center p {
+    font-size: 0.85rem;
+  }
+  
+  .login-page .btn-link {
+    font-size: 0.85rem;
+    padding: 0.3rem 0.8rem;
+  }
+  
+  .login-page .d-grid {
+    gap: 0.5rem;
+  }
+  
+  .login-page .gap-2 {
+    gap: 0.5rem;
+  }
+  
+  .login-page .mt-3 {
+    margin-top: 0.75rem;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 400px) {
+  .login-page .card-body {
+    padding: 1.25rem 1rem !important;
+  }
+  
+  .login-page .card-title {
+    font-size: 1.1rem;
+  }
+  
+  .login-page .bi-shield-lock {
+    font-size: 1.6rem;
+  }
+  
+  .form-floating > .form-control {
+    height: 44px;
+    font-size: 0.85rem;
+  }
+  
+  .form-floating > label {
+    font-size: 0.85rem;
+    padding: 0.7rem 0.7rem;
+  }
+  
+  .login-page .btn-primary {
+    height: 42px;
+    font-size: 0.85rem;
+  }
+  
+  .login-page .btn-outline-primary,
+  .login-page .btn-outline-success {
+    font-size: 0.8rem;
+    padding: 0.4rem;
+  }
+}
+
+/* Landscape phones */
+@media (max-width: 768px) and (orientation: landscape) {
+  .login-page {
+    padding: 1rem;
+    align-items: flex-start;
+    padding-top: 2rem;
+  }
+  
+  .login-page .card {
+    max-width: 420px;
+  }
+  
+  .login-page .card-body {
+    padding: 1.5rem 1.5rem !important;
+  }
+  
+  .login-page .bi-shield-lock {
+    font-size: 2rem;
+  }
+  
+  .login-page .card-title {
+    font-size: 1.3rem;
+  }
+  
+  .form-floating > .form-control {
+    height: 44px;
+  }
+  
+  .login-page .btn-primary {
+    height: 44px;
+  }
+}
+
+/* =========================================================
+   Toast Customization
+   ========================================================= */
+.Toastify__toast {
+  border-radius: var(--radius-md) !important;
+  font-weight: 500 !important;
+  box-shadow: var(--shadow-lg) !important;
+  font-family: var(--font-body) !important;
+}
+
+.Toastify__toast--success {
+  background: linear-gradient(135deg, #059669, #047857) !important;
+}
+
+.Toastify__toast--warning {
+  background: linear-gradient(135deg, #d97706, #b45309) !important;
+}
+
+.Toastify__toast--error {
+  background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+}
+
+.Toastify__toast-body {
+  font-size: 0.95rem !important;
+  padding: 0.5rem 0 !important;
+}
+
+/* =========================================================
+   Animations
+   ========================================================= */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login-page .card {
+  animation: fadeInUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* =========================================================
+   Print Styles
+   ========================================================= */
+@media print {
+  .login-page {
+    background: var(--white) !important;
+    padding: 2rem !important;
+  }
+  
+  .login-page .card {
+    box-shadow: none !important;
+    border: 1px solid var(--grey-200) !important;
+  }
+  
+  .login-page .card::before {
+    display: none !important;
+  }
+  
+  .login-page .btn-primary,
+  .login-page .btn-outline-primary,
+  .login-page .btn-outline-success,
+  .login-page .btn-link {
+    display: none !important;
+  }
+  
+  .login-page .card-body {
+    padding: 2rem !important;
+  }
+}

@@ -1,0 +1,658 @@
+/* =========================================================
+   Worker Requests - Complete Styles
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+.worker-requests-page {
+    min-height: 100vh;
+    background: #f1f3f5;
+    padding: 2rem 1.5rem 4rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.worker-requests-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* =========================================================
+   Loading State
+   ========================================================= */
+.worker-requests-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    gap: 1rem;
+}
+
+.worker-requests-loading .spinner-border {
+    width: 3rem;
+    height: 3rem;
+    border: 0.25rem solid #e9ecef;
+    border-right-color: #ff6b2b;
+    border-radius: 50%;
+    animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.worker-requests-loading p {
+    color: #6c757d;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+/* =========================================================
+   Header
+   ========================================================= */
+.worker-requests-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.worker-requests-header h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: #212529;
+    margin: 0 0 0.2rem;
+}
+
+.worker-requests-header p {
+    color: #6c757d;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.worker-back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.2rem;
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    color: #495057;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+}
+
+.worker-back-button:hover {
+    background: #f1f3f5;
+    border-color: #dee2e6;
+    transform: translateX(-2px);
+}
+
+/* =========================================================
+   Request Summary
+   ========================================================= */
+.worker-request-summary {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.summary-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: rgba(255, 107, 43, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff6b2b;
+    font-size: 1.2rem;
+}
+
+.worker-request-summary > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.worker-request-summary span {
+    font-size: 0.75rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+}
+
+.worker-request-summary strong {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #212529;
+}
+
+/* =========================================================
+   Empty State
+   ========================================================= */
+.worker-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    gap: 0.5rem;
+}
+
+.empty-icon {
+    font-size: 3rem;
+    color: #ced4da;
+    margin-bottom: 0.5rem;
+}
+
+.worker-empty-state h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    color: #212529;
+    margin: 0;
+}
+
+.worker-empty-state p {
+    color: #6c757d;
+    font-size: 0.95rem;
+    margin: 0 0 0.5rem;
+}
+
+.worker-empty-state .btn-primary {
+    padding: 0.6rem 2rem;
+    border-radius: 8px;
+    background: #ff6b2b;
+    color: #ffffff;
+    border: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.worker-empty-state .btn-primary:hover {
+    background: #e85a1a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 107, 43, 0.3);
+}
+
+/* =========================================================
+   Requests List
+   ========================================================= */
+.worker-requests-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+/* =========================================================
+   Request Card
+   ========================================================= */
+.worker-request-card {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.25s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.worker-request-card:hover {
+    border-color: #ffa86a;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
+}
+
+/* =========================================================
+   Card Top
+   ========================================================= */
+.request-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.request-card-top > div {
+    flex: 1;
+    min-width: 0;
+}
+
+.request-code {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    color: #6c757d;
+    background: #f1f3f5;
+    padding: 0.1rem 0.6rem;
+    border-radius: 4px;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.15rem;
+}
+
+.request-card-top h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #212529;
+    margin: 0;
+    word-break: break-word;
+}
+
+.request-status {
+    padding: 0.25rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.status-pending {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.status-assigned {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.status-accepted {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.status-progress {
+    background: #e0e7ff;
+    color: #4f46e5;
+}
+
+.status-arrived {
+    background: #d1fae5;
+    color: #059669;
+}
+
+.status-completed {
+    background: #dcfce7;
+    color: #16a34a;
+}
+
+.status-cancelled {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+/* =========================================================
+   Request Sections
+   ========================================================= */
+.request-section {
+    margin-bottom: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #f1f3f5;
+}
+
+.request-section:first-of-type {
+    border-top: none;
+    padding-top: 0;
+}
+
+.request-section h4 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #6c757d;
+    margin: 0 0 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.request-section h4 i {
+    font-size: 0.85rem;
+    color: #ff6b2b;
+}
+
+/* =========================================================
+   Info Grid
+   ========================================================= */
+.request-info-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+}
+
+.request-info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.request-info-item span {
+    font-size: 0.65rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-weight: 600;
+}
+
+.request-info-item strong {
+    font-size: 0.9rem;
+    color: #212529;
+    font-weight: 600;
+}
+
+/* =========================================================
+   Customer Box
+   ========================================================= */
+.customer-box {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.6rem 0.8rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.customer-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff6b2b20, #ff8a4a20);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff6b2b;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.customer-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.customer-info strong {
+    font-size: 0.9rem;
+    color: #212529;
+    font-weight: 600;
+}
+
+.customer-info span {
+    font-size: 0.8rem;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.customer-info span i {
+    font-size: 0.7rem;
+}
+
+/* =========================================================
+   Address Box
+   ========================================================= */
+.address-box {
+    padding: 0.6rem 0.8rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.address-box strong {
+    display: block;
+    font-size: 0.85rem;
+    color: #212529;
+    font-weight: 600;
+    margin-bottom: 0.1rem;
+}
+
+.address-box p {
+    font-size: 0.85rem;
+    color: #495057;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.address-box small {
+    display: block;
+    font-size: 0.75rem;
+    color: #6c757d;
+    margin-top: 0.2rem;
+}
+
+/* =========================================================
+   Description Box
+   ========================================================= */
+.description-box {
+    padding: 0.6rem 0.8rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 3px solid #ff6b2b;
+    font-size: 0.9rem;
+    color: #495057;
+    line-height: 1.6;
+}
+
+/* =========================================================
+   Request Actions - Enhanced
+   ========================================================= */
+.request-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #f1f3f5;
+    flex-wrap: wrap;
+}
+
+.request-actions .btn-accept {
+    padding: 0.55rem 1.8rem;
+    border-radius: 8px;
+    background: #22c55e;
+    color: #ffffff;
+    border: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+}
+
+.request-actions .btn-accept:hover:not(:disabled) {
+    background: #16a34a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+}
+
+.request-actions .btn-accept:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.request-actions .btn-start {
+    padding: 0.55rem 1.8rem;
+    border-radius: 8px;
+    background: #3b82f6;
+    color: #ffffff;
+    border: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+}
+
+.request-actions .btn-start:hover {
+    background: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+.request-actions .btn-track {
+    padding: 0.55rem 1.8rem;
+    border-radius: 8px;
+    background: #8b5cf6;
+    color: #ffffff;
+    border: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+}
+
+.request-actions .btn-track:hover {
+    background: #7c3aed;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+.status-arrived-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1.2rem;
+    background: #d1fae5;
+    color: #059669;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.status-completed-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1.2rem;
+    background: #dcfce7;
+    color: #16a34a;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+@media (max-width: 992px) {
+    .request-info-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .worker-requests-page {
+        padding: 1.5rem 1rem 3rem;
+    }
+
+    .worker-requests-header {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .worker-requests-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .worker-back-button {
+        align-self: flex-start;
+    }
+
+    .request-card-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .request-info-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+    }
+
+    .worker-request-card {
+        padding: 1.2rem;
+    }
+
+    .request-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .request-actions .btn-accept,
+    .request-actions .btn-start,
+    .request-actions .btn-track {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .worker-requests-page {
+        padding: 1rem 0.75rem 2.5rem;
+    }
+
+    .worker-requests-header h1 {
+        font-size: 1.3rem;
+    }
+
+    .worker-request-card {
+        padding: 1rem;
+        border-radius: 10px;
+    }
+
+    .request-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .request-card-top h2 {
+        font-size: 1rem;
+    }
+
+    .request-status {
+        font-size: 0.6rem;
+        padding: 0.2rem 0.6rem;
+    }
+
+    .worker-request-summary {
+        padding: 0.8rem 1rem;
+        flex-wrap: wrap;
+    }
+
+    .worker-request-summary strong {
+        font-size: 1.2rem;
+    }
+}

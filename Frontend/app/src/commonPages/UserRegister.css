@@ -1,0 +1,355 @@
+/* ===== User Register Page Container ===== */
+.register-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f7ff 0%, #e8f0fe 50%, #dce8f8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+/* ===== Register Card ===== */
+.register-page .card {
+  background: #ffffff;
+  border-radius: 24px !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08) !important;
+  border: none !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+}
+
+.register-page .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12) !important;
+}
+
+.register-page .card-body {
+  padding: 2.5rem !important;
+}
+
+/* ===== Header / Icon - CENTERED ===== */
+.register-page .text-center {
+  text-align: center !important;
+}
+
+.register-page .bi-person-plus-fill {
+  font-size: 3.5rem;
+  color: #0d6efd;
+  display: inline-block;
+  background: linear-gradient(135deg, #e8f0fe, #d4e4f7);
+  padding: 0.8rem 1rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(13, 110, 253, 0.10);
+}
+
+.register-page h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-top: 0.75rem;
+  text-align: center;
+  letter-spacing: -0.5px;
+}
+
+.register-page .text-muted {
+  color: #6c6c8a !important;
+  font-size: 0.95rem;
+  text-align: center;
+  margin-bottom: 0;
+}
+
+/* ===== Form Floating Labels ===== */
+.form-floating {
+  position: relative;
+  margin-bottom: 1.25rem;
+}
+
+.form-floating > .form-control {
+  height: 58px;
+  padding: 1rem 0.75rem 0.5rem;
+  border-radius: 12px;
+  border: 2px solid #e2e8f0;
+  background: #ffffff;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #1a1a2e;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.form-floating > .form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.08);
+  outline: none;
+}
+
+.form-floating > .form-control:not(:placeholder-shown) {
+  padding-top: 1.5rem;
+  padding-bottom: 0.25rem;
+}
+
+.form-floating > label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  padding: 1rem 0.75rem;
+  pointer-events: none;
+  border: none;
+  background: transparent;
+  color: #6c6c8a;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label {
+  transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+  color: #0d6efd;
+  padding-top: 0.5rem;
+  height: auto;
+  font-weight: 600;
+}
+
+.form-floating > .form-control::placeholder {
+  color: transparent;
+  opacity: 0;
+}
+
+.form-floating > .form-control:focus::placeholder {
+  color: #b0b0c8;
+  opacity: 1;
+}
+
+/* ===== Register Button - CENTERED ===== */
+.register-page .btn-primary {
+  background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%);
+  border: none;
+  padding: 0.9rem;
+  font-weight: 600;
+  font-size: 1.05rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(13, 110, 253, 0.25);
+  height: 56px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-page .btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 35px rgba(13, 110, 253, 0.35);
+}
+
+.register-page .btn-primary:active {
+  transform: translateY(0);
+}
+
+/* ===== Worker Register Button - CENTERED ===== */
+.register-page .btn-outline-success {
+  border: 2px solid #198754;
+  border-radius: 12px;
+  padding: 0.6rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  color: #198754;
+  background: transparent;
+  width: auto;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-page .btn-outline-success:hover {
+  background: #198754;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(25, 135, 84, 0.2);
+}
+
+/* ===== Links - CENTERED ===== */
+.register-page .text-center {
+  text-align: center !important;
+}
+
+.register-page .text-center p {
+  text-align: center !important;
+  color: #4a4a6a;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.register-page .text-center .fw-bold {
+  color: #0d6efd;
+  text-decoration: none;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+.register-page .text-center .fw-bold:hover {
+  color: #0b5ed7;
+  text-decoration: underline;
+}
+
+.register-page .btn-link {
+  color: #6c6c8a;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.register-page .btn-link:hover {
+  color: #0d6efd;
+  transform: translateX(-4px);
+}
+
+/* ===== Divider ===== */
+.register-page hr {
+  margin: 1.5rem 0;
+  border: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #e2e8f0, transparent);
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+  .register-page .card-body {
+    padding: 2rem 1.5rem !important;
+  }
+
+  .register-page h2 {
+    font-size: 1.5rem;
+  }
+
+  .register-page .bi-person-plus-fill {
+    font-size: 2.8rem;
+    padding: 0.6rem 0.8rem;
+  }
+
+  .form-floating > .form-control {
+    height: 52px;
+    font-size: 0.95rem;
+  }
+
+  .form-floating > label {
+    font-size: 0.95rem;
+    padding: 0.9rem 0.75rem;
+  }
+
+  .register-page .btn-primary {
+    height: 50px;
+    font-size: 0.95rem;
+  }
+
+  .register-page .btn-outline-success {
+    font-size: 0.95rem;
+    padding: 0.5rem 1.2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .register-page {
+    padding: 0.75rem;
+  }
+
+  .register-page .card {
+    border-radius: 20px !important;
+  }
+
+  .register-page .card-body {
+    padding: 1.25rem !important;
+  }
+
+  .register-page .bi-person-plus-fill {
+    font-size: 2.2rem;
+    padding: 0.5rem 0.7rem;
+    border-radius: 16px;
+  }
+
+  .register-page h2 {
+    font-size: 1.3rem;
+    margin-top: 0.5rem;
+  }
+
+  .register-page .text-muted {
+    font-size: 0.85rem;
+  }
+
+  .form-floating {
+    margin-bottom: 1rem;
+  }
+
+  .form-floating > .form-control {
+    height: 48px;
+    font-size: 0.9rem;
+    padding: 0.8rem 0.6rem 0.3rem;
+    border-radius: 10px;
+  }
+
+  .form-floating > label {
+    font-size: 0.9rem;
+    padding: 0.8rem 0.6rem;
+  }
+
+  .form-floating > .form-control:focus ~ label,
+  .form-floating > .form-control:not(:placeholder-shown) ~ label {
+    transform: scale(0.8) translateY(-0.4rem) translateX(0.1rem);
+    font-size: 0.85rem;
+  }
+
+  .register-page .btn-primary {
+    height: 46px;
+    font-size: 0.9rem;
+    padding: 0.6rem;
+    border-radius: 10px;
+  }
+
+  .register-page .btn-outline-success {
+    font-size: 0.9rem;
+    padding: 0.4rem 1rem;
+    border-radius: 10px;
+  }
+
+  .register-page hr {
+    margin: 1rem 0;
+  }
+
+  .register-page .text-center p {
+    font-size: 0.9rem;
+  }
+
+  .register-page .btn-link {
+    font-size: 0.9rem;
+    padding: 0.3rem 0.8rem;
+  }
+}
+
+/* ===== Input Autofill Fix ===== */
+.form-floating > .form-control:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+  -webkit-text-fill-color: #1a1a2e !important;
+}
+
+.form-floating > .form-control:-webkit-autofill ~ label {
+  transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+  color: #0d6efd;
+}
+
+/* ===== Prevent text blur ===== */
+.form-floating > .form-control,
+.form-floating > label {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

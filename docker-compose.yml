@@ -1,0 +1,57 @@
+
+services:
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+
+    environment:
+      MYSQL_ROOT_PASSWORD: atharv
+      MYSQL_DATABASE: smartserve
+
+    ports:
+      - "3307:3306"
+
+    volumes:
+      - smartserve_mysql_data:/var/lib/mysql
+
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-patharv"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+  backend:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+
+    restart: unless-stopped
+
+    env_file:
+      - ./Backend/.env
+
+    ports:
+      - "3000:3000"
+
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./Frontend/app
+      dockerfile: Dockerfile
+
+    restart: unless-stopped
+
+    ports:
+      - "5173:80"
+
+    depends_on:
+      - backend
+
+volumes:
+  smartserve_mysql_data:
+    external: true
+    name: smart-serve-application_smartserve_mysql_data

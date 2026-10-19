@@ -1,0 +1,589 @@
+/* =====================================================
+   USER HISTORY PAGE - MAIN LAYOUT
+===================================================== */
+
+/* Main page container with sidebar integration */
+.user-history-page {
+  display: flex;
+  min-height: 100vh;
+  background: #f8faff;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Main content area */
+.history-main {
+  flex: 1;
+  margin-left: 240px;
+  padding: 2rem 2.5rem;
+  transition: margin-left 0.3s ease;
+  max-width: 1400px;
+  background: #f8faff;
+}
+
+/* Adjust margin when sidebar is collapsed */
+.user-navbar.collapsed ~ .history-main {
+  margin-left: 76px;
+}
+
+/* =====================================================
+   PAGE HEADER
+===================================================== */
+
+.history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding: 1.5rem 2rem;
+  background: #ffffff;
+  border-radius: 16px;
+  border-left: 4px solid #2563eb;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+}
+
+.history-header:hover {
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.08);
+}
+
+.history-header h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  letter-spacing: -0.5px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.history-header h1 i {
+  color: #2563eb;
+  font-size: 1.5rem;
+}
+
+.history-header p {
+  margin: 0.25rem 0 0 0;
+  color: #6c6c8a;
+  font-size: 0.95rem;
+}
+
+.history-count {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #e8f0fe, #d4e4f7);
+  border-radius: 12px;
+  min-width: 100px;
+}
+
+.history-count span {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2563eb;
+  line-height: 1.2;
+}
+
+.history-count small {
+  font-size: 0.75rem;
+  color: #5a6c8a;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* =====================================================
+   LOADING STATE
+===================================================== */
+
+.history-loading {
+  min-height: 400px;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #eef1f5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: #6c6c8a;
+}
+
+.history-loading .spinner-border {
+  width: 44px;
+  height: 44px;
+  color: #2563eb;
+  border-width: 4px;
+}
+
+.history-loading p {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #6c6c8a;
+}
+
+/* =====================================================
+   ERROR STATE
+===================================================== */
+
+.history-error {
+  min-height: 350px;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #fde8e8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.history-error-icon {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fee2e2, #fecaca);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  color: #dc2626;
+  margin-bottom: 1.25rem;
+}
+
+.history-error h3 {
+  margin: 0 0 0.5rem;
+  color: #1a1a2e;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.history-error p {
+  margin: 0 0 1.5rem;
+  max-width: 450px;
+  color: #6c6c8a;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.history-error .btn-retry {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #2563eb, #3b82f6);
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.history-error .btn-retry:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+}
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.history-empty {
+  min-height: 400px;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #eef1f5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.history-empty-icon {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e8f0fe, #d4e4f7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #2563eb;
+  margin-bottom: 1.25rem;
+}
+
+.history-empty h3 {
+  margin: 0 0 0.5rem;
+  color: #1a1a2e;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.history-empty p {
+  margin: 0;
+  color: #6c6c8a;
+  font-size: 0.95rem;
+}
+
+/* =====================================================
+   HISTORY LIST
+===================================================== */
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: fadeInUp 0.4s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =====================================================
+   HISTORY CARD - CLEAN VERSION
+===================================================== */
+
+.history-card {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #eef1f5;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+}
+
+.history-card:hover {
+  box-shadow: 0 6px 24px rgba(37, 99, 235, 0.07);
+  border-color: #dbe3ed;
+  transform: translateY(-2px);
+}
+
+/* Card left section - without icon */
+.history-card-main {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Info section - clean layout */
+.history-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.history-info h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.history-date {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #8c9aa8;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.history-date i {
+  font-size: 0.85rem;
+  color: #8c9aa8;
+}
+
+/* Card right section */
+.history-card-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  margin-left: 1.5rem;
+}
+
+/* Status badges - clean and minimal */
+.history-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.9rem;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.history-status.completed {
+  background: #dcfce9;
+  color: #16a34a;
+}
+
+.history-status.cancelled {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.history-status.pending {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.history-status.in-progress {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+/* Price display */
+.history-price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN
+===================================================== */
+
+/* Tablets and smaller laptops */
+@media (max-width: 992px) {
+  .history-main {
+    padding: 1.5rem;
+    margin-left: 0;
+  }
+
+  .history-header {
+    padding: 1.25rem 1.5rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .history-header h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Mobile devices */
+@media (max-width: 768px) {
+  .history-main {
+    padding: 1rem;
+  }
+
+  .history-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem;
+    border-left-width: 3px;
+  }
+
+  .history-header h1 {
+    font-size: 1.3rem;
+  }
+
+  .history-header h1 i {
+    font-size: 1.2rem;
+  }
+
+  .history-header p {
+    font-size: 0.85rem;
+  }
+
+  .history-count {
+    align-self: flex-start;
+    min-width: 80px;
+    padding: 0.5rem 1rem;
+  }
+
+  .history-count span {
+    font-size: 1.2rem;
+  }
+
+  /* Card layout on mobile - stack vertically */
+  .history-card {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1rem;
+  }
+
+  .history-card-main {
+    gap: 0.75rem;
+  }
+
+  .history-info h3 {
+    font-size: 0.95rem;
+  }
+
+  .history-date {
+    font-size: 0.8rem;
+  }
+
+  .history-card-right {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 0;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #eef1f5;
+  }
+
+  .history-status {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.7rem;
+  }
+
+  .history-price {
+    font-size: 1rem;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .history-main {
+    padding: 0.75rem;
+  }
+
+  .history-header {
+    padding: 1rem;
+    border-radius: 12px;
+  }
+
+  .history-header h1 {
+    font-size: 1.1rem;
+  }
+
+  .history-card {
+    padding: 0.75rem;
+    border-radius: 12px;
+  }
+
+  .history-info h3 {
+    font-size: 0.9rem;
+  }
+
+  .history-date {
+    font-size: 0.75rem;
+  }
+
+  .history-card-right {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .history-status {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.6rem;
+  }
+
+  .history-price {
+    font-size: 0.9rem;
+  }
+
+  .history-loading,
+  .history-error,
+  .history-empty {
+    min-height: 250px;
+    padding: 2rem 1rem;
+  }
+
+  .history-empty-icon {
+    width: 56px;
+    height: 56px;
+    font-size: 1.5rem;
+  }
+
+  .history-error-icon {
+    width: 52px;
+    height: 52px;
+    font-size: 1.25rem;
+  }
+
+  .history-empty h3,
+  .history-error h3 {
+    font-size: 1rem;
+  }
+
+  .history-empty p,
+  .history-error p {
+    font-size: 0.85rem;
+  }
+}
+
+/* =====================================================
+   SCROLLBAR STYLING
+===================================================== */
+
+.history-main::-webkit-scrollbar {
+  width: 6px;
+}
+
+.history-main::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 10px;
+}
+
+.history-main::-webkit-scrollbar-thumb {
+  background: #2563eb;
+  border-radius: 10px;
+}
+
+.history-main::-webkit-scrollbar-thumb:hover {
+  background: #1d4ed8;
+}
+
+/* =====================================================
+   PRINT STYLES
+===================================================== */
+
+@media print {
+  .user-history-page {
+    background: white;
+  }
+
+  .history-main {
+    margin-left: 0 !important;
+    padding: 1rem;
+  }
+
+  .history-card {
+    break-inside: avoid;
+    box-shadow: none !important;
+    border: 1px solid #ddd;
+  }
+
+  .history-card:hover {
+    transform: none !important;
+  }
+
+  .history-header {
+    box-shadow: none !important;
+    border-left-color: #ddd;
+  }
+}

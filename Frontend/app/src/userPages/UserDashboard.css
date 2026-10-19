@@ -1,0 +1,626 @@
+/* =========================================================
+   SmartServe Dashboard - Rectangular Grey & White Theme
+   Scoped to .dashboard-shell so it doesn't leak to other pages.
+
+   FIXES:
+   - Sidebar width tokens renamed to --dash-* so they no longer
+     collide with UserNavbar.css's global --sidebar-width /
+     --sidebar-width-collapsed (which were 260/84 here vs 260/76
+     there — whichever stylesheet loaded last silently won).
+     Collapsed width now matches the navbar exactly: 84px.
+   - Quick-access button colours target the COLUMN, not the
+     button. Each .quick-btn is the only child of its .col-md-3,
+     so :nth-child(1..4) on the button matched all four.
+   - Stats grid and quick-access grid are now separately
+     targetable (.stats-row / .quick-row) instead of both being
+     an untargetable `.row.mt-4`.
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap');
+
+/* =========================================================
+   Design Tokens
+   ========================================================= */
+:root {
+  --dark-blue-900: #0a1628;
+  --dark-blue-800: #0f1f3a;
+  --dark-blue-700: #162a4a;
+  --dark-blue-600: #1c3a5a;
+
+  --grey-50: #f8f9fa;
+  --grey-100: #f1f3f5;
+  --grey-200: #e9ecef;
+  --grey-300: #dee2e6;
+  --grey-400: #ced4da;
+  --grey-500: #adb5bd;
+  --grey-600: #6c757d;
+  --grey-700: #495057;
+  --grey-800: #343a40;
+  --grey-900: #212529;
+
+  --white: #ffffff;
+  --white-smoke: #f8f9fa;
+
+  --orange-500: #ff6b2b;
+  --orange-400: #ff8a4a;
+  --orange-300: #ffa86a;
+  --orange-glow: rgba(255, 107, 43, 0.15);
+  --orange-glow-strong: rgba(255, 107, 43, 0.3);
+
+  --dashboard-bg: #f1f3f5;
+  --card-bg: #ffffff;
+  --card-grey: #f8f9fa;
+  --card-border: #e9ecef;
+  --text-primary: #212529;
+  --text-secondary: #495057;
+  --text-muted: #6c757d;
+  --border-color: #dee2e6;
+
+  --success: #22c55e;
+  --success-bg: rgba(34, 197, 94, 0.1);
+  --warning: #f59e0b;
+  --warning-bg: rgba(245, 158, 11, 0.1);
+  --danger: #ef4444;
+  --danger-bg: rgba(239, 68, 68, 0.1);
+  --info: #3b82f6;
+  --info-bg: rgba(59, 130, 246, 0.1);
+
+  /* Renamed from --sidebar-width / --sidebar-width-collapsed to
+     stop this file fighting UserNavbar.css over the same names.
+     84px matches --sidebar-width-collapsed in UserNavbar.css. */
+  --dash-sidebar-width: 260px;
+  --dash-sidebar-collapsed: 84px;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.1);
+
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* =========================================================
+   ALL STYLES ARE SCOPED INSIDE .dashboard-shell
+   ========================================================= */
+
+.dashboard-shell {
+  display: flex !important;
+  min-height: 100vh !important;
+  background: var(--dashboard-bg) !important;
+  overflow-x: hidden !important;
+}
+
+.dashboard-shell .dashboard-main {
+  flex: 1 !important;
+  min-width: 0 !important;
+  margin-left: var(--dash-sidebar-width) !important;
+  padding: 2rem 2.5rem 4rem !important;
+  transition: margin-left 0.35s var(--ease) !important;
+  min-height: 100vh !important;
+  background: var(--dashboard-bg) !important;
+  position: relative !important;
+  overflow-x: hidden !important;
+}
+
+.dashboard-shell .user-navbar.collapsed ~ .dashboard-main {
+  margin-left: var(--dash-sidebar-collapsed) !important;
+}
+
+.dashboard-shell .dashboard-content {
+  animation: fadeIn 0.6s var(--ease) !important;
+  max-width: 1400px !important;
+  margin: 0 auto !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================================
+   Welcome Section
+   ========================================================= */
+.dashboard-shell .welcome-section {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 2rem !important;
+  padding: 1.8rem 2.2rem !important;
+  background: var(--card-grey) !important;
+  border-radius: var(--radius-md) !important;
+  border: 1px solid var(--card-border) !important;
+  box-shadow: none !important;
+  transition: background 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease) !important;
+  position: relative !important;
+  gap: 1rem !important;
+}
+
+.dashboard-shell .welcome-section:hover {
+  background: var(--white) !important;
+  box-shadow: var(--shadow-sm) !important;
+  border-color: var(--grey-300) !important;
+}
+
+.dashboard-shell .welcome-section h2 {
+  font-size: 1.6rem !important;
+  color: var(--text-primary) !important;
+  margin: 0 0 0.2rem !important;
+  font-weight: 700 !important;
+  font-family: var(--font-display) !important;
+}
+
+.dashboard-shell .welcome-section h2 .highlight {
+  color: var(--orange-500) !important;
+  margin-left: 0.35rem !important;
+}
+
+.dashboard-shell .welcome-section p {
+  font-size: 0.95rem !important;
+  color: var(--text-muted) !important;
+  margin: 0 !important;
+}
+
+.dashboard-shell .welcome-section .btn-primary {
+  padding: 0.7rem 1.8rem !important;
+  border-radius: var(--radius-sm) !important;
+  font-weight: 600 !important;
+  background: var(--orange-500) !important;
+  border: none !important;
+  color: var(--white) !important;
+  transition: background 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  text-decoration: none !important;
+  font-size: 0.9rem !important;
+  cursor: pointer !important;
+  font-family: var(--font-body) !important;
+  box-shadow: none !important;
+  white-space: nowrap !important;
+}
+
+.dashboard-shell .welcome-section .btn-primary:hover {
+  background: #e85a1a !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px var(--orange-glow-strong) !important;
+}
+
+.dashboard-shell .welcome-section .btn-primary:focus-visible {
+  outline: 2px solid var(--orange-500) !important;
+  outline-offset: 2px !important;
+}
+
+/* =========================================================
+   Grid rows (shared)
+   ========================================================= */
+.dashboard-shell .dashboard-content .row.mt-4 {
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important;
+  gap: 1.25rem !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 2rem !important;
+}
+
+.dashboard-shell .dashboard-content .col-md-3 {
+  width: 100% !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+}
+
+/* =========================================================
+   Statistics Cards
+   ========================================================= */
+.dashboard-shell .stat-card {
+  background: var(--card-grey) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 1.5rem 1.2rem !important;
+  text-align: center !important;
+  border: 1px solid var(--card-border) !important;
+  transition: background 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.3s var(--ease) !important;
+  cursor: pointer !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+}
+
+.dashboard-shell .stat-card:hover {
+  background: var(--white) !important;
+  box-shadow: var(--shadow-sm) !important;
+  border-color: var(--grey-300) !important;
+  transform: translateY(-2px);
+}
+
+.dashboard-shell .stat-card .stat-icon {
+  font-size: 2rem !important;
+  margin-bottom: 0.4rem !important;
+  display: inline-block !important;
+  line-height: 1 !important;
+}
+
+.dashboard-shell .stat-card .stat-icon.text-primary { color: var(--orange-500) !important; }
+.dashboard-shell .stat-card .stat-icon.text-success { color: var(--success) !important; }
+.dashboard-shell .stat-card .stat-icon.text-warning { color: var(--warning) !important; }
+.dashboard-shell .stat-card .stat-icon.text-danger  { color: var(--danger) !important; }
+
+.dashboard-shell .stat-card h3 {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  color: var(--text-primary) !important;
+  margin: 0 !important;
+  line-height: 1.2 !important;
+  font-family: var(--font-display) !important;
+}
+
+.dashboard-shell .stat-card p {
+  font-size: 0.8rem !important;
+  color: var(--text-muted) !important;
+  font-weight: 500 !important;
+  margin: 0.2rem 0 0 !important;
+  letter-spacing: 0.02em !important;
+}
+
+/* =========================================================
+   Recent Activities
+   ========================================================= */
+.dashboard-shell .dashboard-content .card.shadow {
+  background: var(--white) !important;
+  border-radius: var(--radius-md) !important;
+  border: 1px solid var(--card-border) !important;
+  overflow: hidden !important;
+  margin-top: 2rem !important;
+  box-shadow: none !important;
+  transition: box-shadow 0.3s var(--ease) !important;
+}
+
+.dashboard-shell .dashboard-content .card.shadow:hover {
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.dashboard-shell .card-header {
+  padding: 1.2rem 1.5rem !important;
+  background: var(--card-grey) !important;
+  border-bottom: 1px solid var(--card-border) !important;
+}
+
+.dashboard-shell .card-header h5 {
+  font-size: 1rem !important;
+  color: var(--text-primary) !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  font-weight: 600 !important;
+  font-family: var(--font-display) !important;
+}
+
+.dashboard-shell .card-header h5 i {
+  color: var(--orange-500) !important;
+}
+
+.dashboard-shell .card-body {
+  padding: 1.2rem 1.5rem !important;
+}
+
+.dashboard-shell .activity-item {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 0.7rem 0 !important;
+  border-bottom: 1px solid var(--card-border) !important;
+  transition: background 0.2s var(--ease) !important;
+  gap: 1rem !important;
+}
+
+.dashboard-shell .activity-item:last-child {
+  border-bottom: none !important;
+}
+
+.dashboard-shell .activity-item:hover {
+  background: var(--card-grey) !important;
+  border-radius: var(--radius-sm) !important;
+  margin: 0 -0.5rem !important;
+  padding: 0.7rem 0.5rem !important;
+}
+
+.dashboard-shell .activity-item strong {
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+  font-size: 0.9rem !important;
+}
+
+.dashboard-shell .activity-item small {
+  color: var(--text-muted) !important;
+  font-size: 0.75rem !important;
+}
+
+.dashboard-shell .activity-item .badge {
+  padding: 0.3rem 0.7rem !important;
+  border-radius: 4px !important;
+  font-weight: 600 !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 0.02em !important;
+  display: inline-block !important;
+  line-height: 1.4 !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+}
+
+.dashboard-shell .activity-item .badge.bg-success {
+  background-color: var(--success-bg) !important;
+  color: var(--success) !important;
+}
+
+.dashboard-shell .activity-item .badge.bg-warning {
+  background-color: var(--warning-bg) !important;
+  color: var(--warning) !important;
+}
+
+.dashboard-shell .activity-item .badge.bg-danger {
+  background-color: var(--danger-bg) !important;
+  color: var(--danger) !important;
+}
+
+.dashboard-shell .activity-item .badge.bg-info-status {
+  background-color: var(--info-bg) !important;
+  color: var(--info) !important;
+}
+
+/* Empty state */
+.dashboard-shell .card-body .empty-state {
+  padding: 2rem 0 !important;
+  color: var(--text-muted) !important;
+}
+
+.dashboard-shell .card-body .empty-state i {
+  font-size: 2rem !important;
+  color: var(--grey-500) !important;
+  display: block !important;
+  margin-bottom: 0.5rem !important;
+}
+
+/* =========================================================
+   Quick Access
+   The colour rules target the COLUMN. Targeting .quick-btn
+   with :nth-child made every button match, because each button
+   is the only child of its column.
+   ========================================================= */
+.dashboard-shell .dashboard-content .quick-row .col-md-3 {
+  display: flex !important;
+  justify-content: center !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.dashboard-shell .quick-btn {
+  width: 100% !important;
+  padding: 1rem 1.2rem !important;
+  border: 1px solid var(--card-border) !important;
+  border-radius: var(--radius-md) !important;
+  background: var(--card-grey) !important;
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+  font-size: 0.9rem !important;
+  transition: background 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.3s var(--ease) !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.6rem !important;
+  font-family: var(--font-body) !important;
+  box-shadow: none !important;
+}
+
+.dashboard-shell .quick-btn:hover {
+  background: var(--white) !important;
+  box-shadow: var(--shadow-sm) !important;
+  border-color: var(--grey-300) !important;
+  transform: translateY(-2px);
+}
+
+.dashboard-shell .quick-btn:focus-visible {
+  outline: 2px solid var(--orange-500) !important;
+  outline-offset: 2px !important;
+}
+
+.dashboard-shell .quick-row .col-md-3:nth-child(1) .quick-btn { color: var(--orange-500) !important; }
+.dashboard-shell .quick-row .col-md-3:nth-child(1) .quick-btn:hover { border-color: var(--orange-500) !important; }
+
+.dashboard-shell .quick-row .col-md-3:nth-child(2) .quick-btn { color: var(--grey-700) !important; }
+.dashboard-shell .quick-row .col-md-3:nth-child(2) .quick-btn:hover { border-color: var(--grey-500) !important; }
+
+.dashboard-shell .quick-row .col-md-3:nth-child(3) .quick-btn { color: var(--warning) !important; }
+.dashboard-shell .quick-row .col-md-3:nth-child(3) .quick-btn:hover { border-color: var(--warning) !important; }
+
+.dashboard-shell .quick-row .col-md-3:nth-child(4) .quick-btn { color: var(--success) !important; }
+.dashboard-shell .quick-row .col-md-3:nth-child(4) .quick-btn:hover { border-color: var(--success) !important; }
+
+.dashboard-shell .quick-btn i {
+  font-size: 1.2rem !important;
+  opacity: 0.7 !important;
+  transition: opacity 0.3s var(--ease) !important;
+}
+
+.dashboard-shell .quick-btn:hover i {
+  opacity: 1 !important;
+}
+
+/* =========================================================
+   Loading States
+   ========================================================= */
+.dashboard-shell .text-center.mt-5 {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  min-height: 400px !important;
+}
+
+.dashboard-shell .spinner-border {
+  width: 3rem !important;
+  height: 3rem !important;
+  border: 0.25rem solid var(--grey-200) !important;
+  border-right-color: var(--orange-500) !important;
+  border-radius: 50% !important;
+  animation: spinner 0.75s linear infinite !important;
+}
+
+@keyframes spinner {
+  to { transform: rotate(360deg); }
+}
+
+/* =========================================================
+   Responsive
+   Breakpoint is 900px to match UserNavbar.css, where the
+   sidebar goes off-canvas. Zeroing the margin at a different
+   width would leave the fixed sidebar sitting on the content.
+   ========================================================= */
+@media (max-width: 1200px) {
+  .dashboard-shell .dashboard-content .row.mt-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .dashboard-shell .dashboard-main,
+  .dashboard-shell .user-navbar.collapsed ~ .dashboard-main {
+    padding: 1.5rem !important;
+    margin-left: 0 !important;
+    padding-top: 5rem !important;
+  }
+
+  .dashboard-shell .welcome-section {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 1rem !important;
+    padding: 1.5rem !important;
+  }
+
+  .dashboard-shell .welcome-section h2 { font-size: 1.4rem !important; }
+
+  .dashboard-shell .welcome-section .btn-primary {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  .dashboard-shell .dashboard-content .row.mt-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.8rem !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-shell .dashboard-main,
+  .dashboard-shell .user-navbar.collapsed ~ .dashboard-main {
+    padding: 1rem !important;
+    padding-top: 4.5rem !important;
+  }
+
+  .dashboard-shell .welcome-section { padding: 1.2rem 1.5rem !important; }
+  .dashboard-shell .welcome-section h2 { font-size: 1.2rem !important; }
+  .dashboard-shell .welcome-section p { font-size: 0.85rem !important; }
+
+  .dashboard-shell .stat-card { padding: 1rem 0.8rem !important; }
+  .dashboard-shell .stat-card .stat-icon { font-size: 1.6rem !important; }
+  .dashboard-shell .stat-card h3 { font-size: 1.4rem !important; }
+  .dashboard-shell .stat-card p { font-size: 0.7rem !important; }
+
+  .dashboard-shell .card-header { padding: 1rem 1.2rem !important; }
+  .dashboard-shell .card-body { padding: 1rem 1.2rem !important; }
+  .dashboard-shell .activity-item { padding: 0.5rem 0 !important; }
+
+  .dashboard-shell .quick-btn { padding: 0.8rem 1rem !important; font-size: 0.8rem !important; }
+  .dashboard-shell .quick-btn i { font-size: 1.1rem !important; }
+}
+
+@media (max-width: 576px) {
+  .dashboard-shell .dashboard-main,
+  .dashboard-shell .user-navbar.collapsed ~ .dashboard-main {
+    padding: 0.75rem !important;
+    padding-top: 4rem !important;
+  }
+
+  .dashboard-shell .welcome-section {
+    padding: 0.8rem 1rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .dashboard-shell .welcome-section h2 { font-size: 1rem !important; }
+  .dashboard-shell .welcome-section p { font-size: 0.75rem !important; }
+  .dashboard-shell .welcome-section .btn-primary { font-size: 0.8rem !important; padding: 0.5rem 1rem !important; }
+
+  .dashboard-shell .dashboard-content .row.mt-4 {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.5rem !important;
+    margin-top: 0.8rem !important;
+  }
+
+  .dashboard-shell .stat-card { padding: 0.6rem 0.5rem !important; }
+  .dashboard-shell .stat-card .stat-icon { font-size: 1.2rem !important; margin-bottom: 0.2rem !important; }
+  .dashboard-shell .stat-card h3 { font-size: 1rem !important; }
+  .dashboard-shell .stat-card p { font-size: 0.6rem !important; }
+
+  .dashboard-shell .dashboard-content .card.shadow { margin-top: 1.5rem !important; }
+  .dashboard-shell .card-header { padding: 0.7rem 1rem !important; }
+  .dashboard-shell .card-header h5 { font-size: 0.9rem !important; }
+  .dashboard-shell .card-body { padding: 0.7rem 1rem !important; }
+
+  .dashboard-shell .activity-item {
+    padding: 0.4rem 0 !important;
+    flex-wrap: wrap !important;
+    gap: 0.3rem !important;
+  }
+
+  .dashboard-shell .activity-item strong { font-size: 0.8rem !important; }
+  .dashboard-shell .activity-item small { font-size: 0.65rem !important; }
+  .dashboard-shell .activity-item .badge { font-size: 0.55rem !important; padding: 0.15rem 0.5rem !important; }
+
+  .dashboard-shell .quick-btn { padding: 0.6rem 0.8rem !important; font-size: 0.7rem !important; }
+  .dashboard-shell .quick-btn i { font-size: 0.9rem !important; }
+}
+
+@media (max-width: 768px) and (orientation: landscape) {
+  .dashboard-shell .dashboard-main { padding-top: 4rem !important; }
+  .dashboard-shell .dashboard-content .row.mt-4 { grid-template-columns: repeat(4, 1fr) !important; }
+}
+
+/* =========================================================
+   Print
+   ========================================================= */
+@media print {
+  .dashboard-shell .user-navbar,
+  .dashboard-shell .sidebar-mobile-toggle,
+  .dashboard-shell .sidebar-backdrop {
+    display: none !important;
+  }
+
+  .dashboard-shell .dashboard-main,
+  .dashboard-shell .user-navbar.collapsed ~ .dashboard-main {
+    margin-left: 0 !important;
+    padding: 1rem !important;
+  }
+
+  .dashboard-shell .stat-card,
+  .dashboard-shell .dashboard-content .card.shadow,
+  .dashboard-shell .quick-btn {
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+  }
+
+  .dashboard-shell .welcome-section {
+    border: 1px solid #ddd !important;
+    box-shadow: none !important;
+  }
+
+  .dashboard-shell .quick-btn {
+    background: #f8f8f8 !important;
+  }
+}
