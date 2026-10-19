@@ -1,0 +1,1337 @@
+/* =========================================================
+   WORKER PROFILE - COMPLETE STYLES
+   ========================================================= */
+
+/* =========================================================
+   IMPORTS & ROOT VARIABLES
+   ========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --wp-primary: #2563eb;
+  --wp-primary-dark: #1d4ed8;
+  --wp-primary-light: #3b82f6;
+  --wp-primary-bg: #eff6ff;
+  --wp-success: #10B981;
+  --wp-success-dark: #059669;
+  --wp-success-bg: #dcfce9;
+  --wp-warning: #f59e0b;
+  --wp-danger: #ef4444;
+  --wp-text-dark: #0f172a;
+  --wp-text-medium: #334155;
+  --wp-text-light: #64748b;
+  --wp-border: #e2e8f0;
+  --wp-bg-light: #f8fafc;
+  --wp-bg-hover: #f1f5f9;
+  --wp-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --wp-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --wp-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --wp-shadow-blue: 0 4px 20px rgba(37, 99, 235, 0.25);
+  --wp-shadow-blue-hover: 0 8px 35px rgba(37, 99, 235, 0.35);
+  --wp-radius: 16px;
+  --wp-radius-sm: 8px;
+  --wp-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =========================================================
+   WRAPPER - All styles scoped
+   ========================================================= */
+.worker-profile-wrapper {
+
+  /* =========================================================
+     LAYOUT
+  ========================================================= */
+  .dashboard-shell {
+    display: flex;
+    min-height: 100vh;
+    background: var(--wp-bg-light);
+  }
+
+  .dashboard-main {
+    flex: 1;
+    margin-left: 240px;
+    padding: 2rem 2.5rem;
+    transition: margin-left 0.3s ease;
+    min-height: 100vh;
+    background: var(--wp-bg-light);
+  }
+
+  .worker-navbar.collapsed ~ .dashboard-main {
+    margin-left: 76px;
+  }
+
+  .container-fluid {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* =========================================================
+     PAGE HEADER
+  ========================================================= */
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 1.5rem 2rem;
+    background: #ffffff;
+    border-radius: var(--wp-radius);
+    box-shadow: var(--wp-shadow-sm);
+    border-left: 4px solid var(--wp-primary);
+    transition: var(--wp-transition);
+  }
+
+  .page-header:hover {
+    box-shadow: var(--wp-shadow-md);
+  }
+
+  .page-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    color: var(--wp-text-dark);
+    font-size: 1.75rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    letter-spacing: -0.5px;
+  }
+
+  .page-title i {
+    color: var(--wp-primary);
+    font-size: 1.5rem;
+  }
+
+  .page-subtitle {
+    color: var(--wp-text-light);
+    font-size: 0.95rem;
+    margin: 0.25rem 0 0 0;
+  }
+
+  /* =========================================================
+     STATUS BADGE
+  ========================================================= */
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1.2rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .status-badge-available {
+    background: var(--wp-success-bg);
+    color: var(--wp-success-dark);
+  }
+
+  .status-badge-unavailable {
+    background: var(--wp-bg-hover);
+    color: var(--wp-text-light);
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .status-badge-available .status-dot {
+    background: var(--wp-success);
+    animation: pulse-dot 2s infinite;
+  }
+
+  .status-badge-unavailable .status-dot {
+    background: var(--wp-text-light);
+  }
+
+  /* =========================================================
+     TABS
+  ========================================================= */
+  .profile-tabs {
+    display: flex;
+    gap: 0.25rem;
+    border-bottom: 2px solid var(--wp-border);
+    margin-bottom: 1.5rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .profile-tabs .nav-item {
+    margin-bottom: -2px;
+  }
+
+  .profile-tabs .nav-link {
+    border: none;
+    border-bottom: 3px solid transparent;
+    padding: 0.7rem 1.5rem;
+    font-weight: 600;
+    color: var(--wp-text-light);
+    border-radius: 0;
+    transition: var(--wp-transition);
+    background: transparent;
+    font-size: 0.95rem;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .profile-tabs .nav-link:hover {
+    color: var(--wp-primary);
+    background: rgba(37, 99, 235, 0.05);
+  }
+
+  .profile-tabs .nav-link.active {
+    color: var(--wp-primary);
+    border-bottom-color: var(--wp-primary);
+    background: transparent;
+  }
+
+  .profile-tabs .nav-link i {
+    font-size: 1.1rem;
+  }
+
+  /* =========================================================
+     PROFILE CARD
+  ========================================================= */
+  .profile-card {
+    background: #ffffff;
+    border: 1px solid var(--wp-border);
+    border-radius: var(--wp-radius);
+    box-shadow: var(--wp-shadow-sm);
+    overflow: hidden;
+    transition: var(--wp-transition);
+    margin-bottom: 1.5rem;
+  }
+
+  .profile-card:hover {
+    box-shadow: var(--wp-shadow-md);
+    border-color: #d0d8e3;
+  }
+
+  /* =========================================================
+     CARD HEADERS
+  ========================================================= */
+  .card-header {
+    padding: 1.2rem 1.75rem;
+    border-bottom: none;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+  }
+
+  .profile-card:hover .card-header::after {
+    opacity: 1;
+  }
+
+  .card-header h5 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 0;
+    font-size: 1rem;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .card-header h5 i {
+    font-size: 1.1rem;
+  }
+
+  .card-header-primary {
+    background: linear-gradient(135deg, #0f1f3a 0%, var(--wp-primary) 100%);
+  }
+
+  .card-header-primary::after {
+    background: linear-gradient(90deg, var(--wp-primary-light), #93bbfc);
+  }
+
+  .card-header-warning {
+    background: linear-gradient(135deg, #92400e 0%, var(--wp-warning) 100%);
+  }
+
+  .card-header-warning::after {
+    background: linear-gradient(90deg, #fbbf24, #fcd34d);
+  }
+
+  .card-body {
+    padding: 1.75rem;
+  }
+
+  /* =========================================================
+     FORM ELEMENTS
+  ========================================================= */
+  .section-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    color: var(--wp-text-dark);
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .section-title i {
+    color: var(--wp-primary);
+  }
+
+  .section-divider {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--wp-border), transparent);
+    margin: 1.5rem 0;
+    opacity: 0.5;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .form-group-full {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-label {
+    font-weight: 600;
+    color: var(--wp-text-medium);
+    font-size: 0.85rem;
+    display: block;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .form-label-hint {
+    color: var(--wp-text-light);
+    font-weight: 400;
+  }
+
+  .form-hint {
+    color: var(--wp-text-light);
+    font-size: 0.75rem;
+    margin-top: 0.15rem;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 0.6rem 0.9rem;
+    border-radius: var(--wp-radius-sm);
+    border: 2px solid var(--wp-border);
+    font-size: 0.9rem;
+    font-family: 'Inter', sans-serif;
+    transition: var(--wp-transition);
+    background: var(--wp-bg-light);
+    color: var(--wp-text-dark);
+    height: 44px;
+  }
+
+  .form-control:focus {
+    border-color: var(--wp-primary);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    outline: none;
+    background: #ffffff;
+  }
+
+  .form-control-readonly {
+    background: var(--wp-bg-hover) !important;
+    color: var(--wp-text-light) !important;
+    cursor: not-allowed !important;
+  }
+
+  .form-control-readonly:focus {
+    background: var(--wp-bg-hover) !important;
+    box-shadow: none !important;
+    border-color: var(--wp-border) !important;
+  }
+
+  .form-control-textarea {
+    height: auto !important;
+    min-height: 80px;
+    resize: vertical;
+  }
+
+  .form-control::placeholder {
+    color: #94a3b8;
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--wp-border);
+  }
+
+  /* =========================================================
+     BUTTONS
+  ========================================================= */
+  .btn {
+    padding: 0.6rem 1.8rem;
+    border-radius: var(--wp-radius-sm);
+    font-weight: 600;
+    font-size: 0.9rem;
+    font-family: 'Inter', sans-serif;
+    transition: var(--wp-transition);
+    cursor: pointer;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    height: 44px;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--wp-primary), var(--wp-primary-dark));
+    color: #ffffff;
+    box-shadow: var(--wp-shadow-blue);
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: var(--wp-shadow-blue-hover);
+    background: linear-gradient(135deg, var(--wp-primary-dark), var(--wp-primary));
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .btn .spinner-border {
+    width: 1rem;
+    height: 1rem;
+    border-width: 0.15rem;
+  }
+
+  /* =========================================================
+     APPROVAL BADGE
+  ========================================================= */
+  .approval-section {
+    margin: 1rem 0;
+  }
+
+  .approval-badge {
+    display: inline-block;
+    padding: 0.3rem 1rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .approval-badge-approved {
+    background: var(--wp-success-bg);
+    color: var(--wp-success-dark);
+  }
+
+  .approval-badge-pending {
+    background: #fef3c7;
+    color: var(--wp-warning);
+  }
+
+  .approval-badge-rejected {
+    background: #fee2e2;
+    color: var(--wp-danger);
+  }
+
+  /* =========================================================
+     CATEGORIES
+  ========================================================= */
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .section-header h5 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    color: var(--wp-text-dark);
+    font-size: 1rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .section-header h5 i {
+    color: var(--wp-primary);
+  }
+
+  .categories-container {
+    background: var(--wp-bg-light);
+    border-radius: var(--wp-radius-sm);
+    padding: 1rem;
+    border: 1px solid var(--wp-border);
+  }
+
+  .categories-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .category-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, var(--wp-primary), var(--wp-primary-light));
+    color: #ffffff;
+    padding: 0.4rem 1rem 0.4rem 0.75rem;
+    border-radius: 50px;
+    font-weight: 500;
+    font-size: 0.85rem;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+    transition: var(--wp-transition);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .category-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
+  }
+
+  .category-badge i {
+    font-size: 0.75rem;
+    opacity: 0.8;
+  }
+
+  /* =========================================================
+     LOADING & EMPTY STATES
+  ========================================================= */
+  .loading-state {
+    text-align: center;
+    padding: 2rem 0;
+  }
+
+  .loading-state .spinner-border {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--wp-primary);
+    border-width: 0.2rem;
+  }
+
+  .loading-state p {
+    color: var(--wp-text-light);
+    margin: 0.5rem 0 0;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 2rem 0;
+    color: var(--wp-text-light);
+  }
+
+  .empty-state i {
+    display: block;
+    font-size: 3rem;
+    opacity: 0.3;
+    margin-bottom: 0.5rem;
+  }
+
+  .empty-state p {
+    margin: 0;
+  }
+
+  /* =========================================================
+     ALERTS
+  ========================================================= */
+  .info-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.8rem 1.2rem;
+    border-radius: var(--wp-radius-sm);
+    border: 1px solid rgba(37, 99, 235, 0.15);
+    font-size: 0.85rem;
+    background: var(--wp-primary-bg);
+    color: var(--wp-primary);
+    margin-top: 1rem;
+    line-height: 1.6;
+  }
+
+  .info-alert i {
+    font-size: 1.1rem;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+
+  .info-alert-primary {
+    background: var(--wp-primary-bg);
+    border-color: rgba(37, 99, 235, 0.15);
+    color: var(--wp-primary);
+  }
+
+  .info-alert-primary h6 {
+    color: var(--wp-text-dark);
+    margin: 0 0 0.25rem;
+    font-weight: 600;
+  }
+
+  .info-alert-primary ul {
+    margin: 0.25rem 0 0;
+    padding-left: 1.25rem;
+  }
+
+  .info-alert-primary ul li {
+    margin-bottom: 0.15rem;
+  }
+
+  .info-alert-info {
+    background: var(--wp-bg-light);
+    border-color: var(--wp-border);
+    color: var(--wp-text-light);
+  }
+
+  /* =========================================================
+     AVAILABILITY CARD
+  ========================================================= */
+  .availability-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    background: var(--wp-bg-light);
+    border-radius: var(--wp-radius-sm);
+    border: 1px solid var(--wp-border);
+    margin-bottom: 1.25rem;
+    transition: var(--wp-transition);
+  }
+
+  .availability-card:hover {
+    border-color: #cbd5e1;
+  }
+
+  .availability-info h5 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    color: var(--wp-text-dark);
+    font-size: 1rem;
+    margin: 0 0 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .availability-info h5 i {
+    color: var(--wp-success);
+  }
+
+  .availability-info p {
+    color: var(--wp-text-light);
+    font-size: 0.9rem;
+    margin: 0;
+  }
+
+  /* =========================================================
+     TOGGLE SWITCH - FIXED VISIBILITY
+  ========================================================= */
+  .availability-toggle {
+    display: flex;
+    align-items: center;
+  }
+
+  .toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 64px;
+    height: 32px;
+  }
+
+  .toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+  }
+
+  .toggle-label {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    border-radius: 34px;
+    background: var(--wp-border);
+    transition: var(--wp-transition);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .toggle-label .toggle-slider {
+    position: absolute;
+    height: 26px;
+    width: 26px;
+    left: 3px;
+    bottom: 3px;
+    background: #ffffff;
+    border-radius: 50%;
+    transition: var(--wp-transition);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .toggle-label .toggle-text {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: var(--wp-transition);
+    color: var(--wp-text-light);
+  }
+
+  .toggle-label .toggle-text:first-of-type {
+    left: 8px;
+  }
+
+  .toggle-label .toggle-text:last-of-type {
+    right: 8px;
+  }
+
+  /* Checked state */
+  .toggle-switch input:checked + .toggle-label {
+    background: var(--wp-success);
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+  }
+
+  .toggle-switch input:checked + .toggle-label .toggle-slider {
+    transform: translateX(32px);
+  }
+
+  .toggle-switch input:checked + .toggle-label .toggle-text {
+    color: #ffffff;
+  }
+
+  /* Hover effects */
+  .toggle-label:hover {
+    opacity: 0.9;
+  }
+
+  .toggle-switch input:checked + .toggle-label:hover {
+    opacity: 0.9;
+  }
+
+  /* Disabled state */
+  .toggle-switch input:disabled + .toggle-label {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .toggle-switch input:disabled + .toggle-label .toggle-slider {
+    opacity: 0.7;
+  }
+
+  /* Focus state for accessibility */
+  .toggle-switch input:focus-visible + .toggle-label {
+    outline: 2px solid var(--wp-primary);
+    outline-offset: 2px;
+  }
+
+  /* =========================================================
+     LOCATION ALERT
+  ========================================================= */
+  .location-alert {
+    padding: 1.25rem;
+    border-radius: var(--wp-radius-sm);
+    border: 1px solid var(--wp-border);
+    margin-bottom: 1.25rem;
+    transition: var(--wp-transition);
+    background: var(--wp-bg-light);
+  }
+
+  .location-alert-active {
+    border-color: rgba(16, 185, 129, 0.3);
+    background: #ecfdf5;
+  }
+
+  .location-alert-inactive {
+    border-color: var(--wp-border);
+    background: var(--wp-bg-light);
+  }
+
+  .location-alert-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .location-alert-content i {
+    font-size: 1.5rem;
+    margin-top: 2px;
+  }
+
+  .location-alert-active .location-alert-content i {
+    color: var(--wp-success);
+  }
+
+  .location-alert-inactive .location-alert-content i {
+    color: var(--wp-text-light);
+  }
+
+  .location-alert-content h6 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    color: var(--wp-text-dark);
+    margin: 0 0 0.15rem;
+    font-size: 0.95rem;
+  }
+
+  .location-alert-content p {
+    color: var(--wp-text-light);
+    font-size: 0.85rem;
+    margin: 0;
+  }
+
+  /* =========================================================
+     GPS LOCATION CARD - FIXED
+  ========================================================= */
+  .gps-location-card {
+    background: #ffffff;
+    border: 1px solid var(--wp-border);
+    border-radius: var(--wp-radius-sm);
+    padding: 1.25rem;
+    margin-top: 1rem;
+    transition: var(--wp-transition);
+  }
+
+  .gps-location-card:hover {
+    border-color: #cbd5e1;
+    box-shadow: var(--wp-shadow-sm);
+  }
+
+  .gps-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--wp-border);
+  }
+
+  .gps-card-header i {
+    color: var(--wp-primary);
+    font-size: 1.1rem;
+  }
+
+  .gps-card-header span {
+    font-weight: 600;
+    color: var(--wp-text-dark);
+    font-size: 0.9rem;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .gps-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: auto;
+  }
+
+  .gps-status-active {
+    background: var(--wp-success);
+    animation: pulse-dot 2s infinite;
+  }
+
+  /* GPS Details Grid - 2 Column */
+  .gps-details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .gps-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .gps-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--wp-text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .gps-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--wp-text-dark);
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  /* =========================================================
+     STATE CARDS
+  ========================================================= */
+  .state-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+
+  .state-card {
+    background: var(--wp-bg-light);
+    border: 1px solid var(--wp-border);
+    border-radius: var(--wp-radius-sm);
+    padding: 1.25rem;
+    text-align: center;
+    transition: var(--wp-transition);
+  }
+
+  .state-card:hover {
+    border-color: #cbd5e1;
+    transform: translateY(-2px);
+  }
+
+  .state-card i {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  .state-card h6 {
+    font-size: 0.8rem;
+    color: var(--wp-text-light);
+    margin: 0 0 0.25rem;
+    font-weight: 500;
+  }
+
+  .state-card strong {
+    font-size: 0.9rem;
+    color: var(--wp-text-dark);
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .text-success {
+    color: var(--wp-success) !important;
+  }
+
+  .text-primary {
+    color: var(--wp-primary) !important;
+  }
+
+  /* =========================================================
+     RESPONSIVE DESIGN
+  ========================================================= */
+
+  /* Tablets */
+  @media (max-width: 992px) {
+    .dashboard-main {
+      padding: 1.5rem;
+      margin-left: 0 !important;
+    }
+
+    .page-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.25rem 1.5rem;
+    }
+
+    .form-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+    }
+
+    .page-title {
+      font-size: 1.5rem;
+    }
+
+    .state-cards {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .gps-details-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .dashboard-main {
+      padding: 1rem;
+    }
+
+    .page-header {
+      padding: 1rem 1.25rem;
+      border-left-width: 3px;
+    }
+
+    .page-title {
+      font-size: 1.3rem;
+    }
+
+    .page-title i {
+      font-size: 1.2rem;
+    }
+
+    .page-subtitle {
+      font-size: 0.85rem;
+    }
+
+    .card-body {
+      padding: 1.2rem;
+    }
+
+    .card-header {
+      padding: 1rem 1.25rem;
+    }
+
+    .card-header h5 {
+      font-size: 0.9rem;
+    }
+
+    .profile-tabs .nav-link {
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+    }
+
+    .profile-tabs .nav-link i {
+      font-size: 0.95rem;
+    }
+
+    .form-control {
+      font-size: 0.85rem;
+      padding: 0.5rem 0.8rem;
+      height: 40px;
+    }
+
+    .form-label {
+      font-size: 0.8rem;
+    }
+
+    .form-actions {
+      justify-content: center;
+    }
+
+    .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .availability-card {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .availability-toggle {
+      display: flex;
+      justify-content: center;
+    }
+
+    .gps-details-grid {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    .gps-value {
+      font-size: 0.9rem;
+    }
+
+    .gps-location-card {
+      padding: 1rem;
+    }
+
+    .state-cards {
+      grid-template-columns: 1fr;
+    }
+
+    .info-alert {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .location-alert-content {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .status-badge {
+      font-size: 0.75rem;
+      padding: 0.3rem 1rem;
+    }
+
+    /* Toggle switch mobile */
+    .toggle-switch {
+      width: 56px;
+      height: 28px;
+    }
+
+    .toggle-label .toggle-slider {
+      height: 22px;
+      width: 22px;
+      left: 3px;
+      bottom: 3px;
+    }
+
+    .toggle-switch input:checked + .toggle-label .toggle-slider {
+      transform: translateX(28px);
+    }
+
+    .toggle-label .toggle-text {
+      font-size: 0.6rem;
+    }
+  }
+
+  /* Small Mobile */
+  @media (max-width: 576px) {
+    .dashboard-main {
+      padding: 0.75rem;
+    }
+
+    .page-header {
+      padding: 0.8rem 1rem;
+      border-radius: var(--wp-radius-sm);
+    }
+
+    .page-title {
+      font-size: 1.1rem;
+    }
+
+    .page-subtitle {
+      font-size: 0.8rem;
+    }
+
+    .card-body {
+      padding: 0.8rem;
+    }
+
+    .card-header {
+      padding: 0.75rem 1rem;
+    }
+
+    .card-header h5 {
+      font-size: 0.85rem;
+    }
+
+    .profile-tabs {
+      gap: 0.1rem;
+    }
+
+    .profile-tabs .nav-link {
+      padding: 0.4rem 0.7rem;
+      font-size: 0.75rem;
+    }
+
+    .profile-tabs .nav-link i {
+      font-size: 0.8rem;
+      margin-right: 0.2rem;
+    }
+
+    .form-control {
+      font-size: 0.8rem;
+      padding: 0.4rem 0.7rem;
+      height: 36px;
+    }
+
+    .form-label {
+      font-size: 0.75rem;
+    }
+
+    .form-hint {
+      font-size: 0.65rem;
+    }
+
+    .btn {
+      font-size: 0.8rem;
+      padding: 0.4rem 1rem;
+      height: 38px;
+    }
+
+    .gps-label {
+      font-size: 0.6rem;
+    }
+
+    .gps-value {
+      font-size: 0.85rem;
+    }
+
+    .gps-location-card {
+      padding: 0.75rem;
+    }
+
+    .gps-card-header span {
+      font-size: 0.8rem;
+    }
+
+    .categories-grid {
+      gap: 0.5rem;
+    }
+
+    .category-badge {
+      font-size: 0.75rem;
+      padding: 0.3rem 0.7rem 0.3rem 0.5rem;
+    }
+
+    .status-badge {
+      font-size: 0.7rem;
+      padding: 0.25rem 0.8rem;
+    }
+
+    .location-alert {
+      padding: 0.8rem;
+    }
+
+    .location-alert-content i {
+      font-size: 1.2rem;
+    }
+
+    .location-alert-content h6 {
+      font-size: 0.85rem;
+    }
+
+    .location-alert-content p {
+      font-size: 0.8rem;
+    }
+
+    .info-alert {
+      font-size: 0.8rem;
+      padding: 0.6rem 1rem;
+    }
+
+    .info-alert-primary ul {
+      padding-left: 1rem;
+    }
+
+    .info-alert-primary ul li {
+      font-size: 0.8rem;
+    }
+
+    /* Toggle switch small mobile */
+    .toggle-switch {
+      width: 48px;
+      height: 24px;
+    }
+
+    .toggle-label .toggle-slider {
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+    }
+
+    .toggle-switch input:checked + .toggle-label .toggle-slider {
+      transform: translateX(24px);
+    }
+
+    .toggle-label .toggle-text {
+      font-size: 0.5rem;
+    }
+  }
+
+  /* =========================================================
+     PRINT STYLES
+  ========================================================= */
+  @media print {
+    .dashboard-main {
+      margin-left: 0 !important;
+      padding: 1rem !important;
+    }
+
+    .profile-card {
+      break-inside: avoid;
+      box-shadow: none !important;
+      border: 1px solid var(--wp-border) !important;
+    }
+
+    .profile-card:hover {
+      transform: none !important;
+    }
+
+    .btn {
+      display: none !important;
+    }
+
+    .card-header::after {
+      display: none !important;
+    }
+
+    .toggle-label {
+      background: var(--wp-border) !important;
+    }
+
+    .toggle-switch input:checked + .toggle-label {
+      background: var(--wp-success) !important;
+    }
+  }
+
+  /* =========================================================
+     SCROLLBAR
+  ========================================================= */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--wp-bg-light);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--wp-primary);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--wp-primary-dark);
+  }
+
+  /* =========================================================
+     SELECTION
+  ========================================================= */
+  ::selection {
+    background: var(--wp-primary);
+    color: #ffffff;
+  }
+
+  ::-moz-selection {
+    background: var(--wp-primary);
+    color: #ffffff;
+  }
+
+} /* END OF .worker-profile-wrapper */

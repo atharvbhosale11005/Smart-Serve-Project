@@ -1,0 +1,614 @@
+/* =========================================================
+   HOME NAVBAR - Professional & Clean
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+/* =========================================================
+   NAVBAR VARIABLES
+   ========================================================= */
+:root {
+  --nav-bg: rgba(255, 255, 255, 0.95);
+  --nav-bg-scrolled: rgba(255, 255, 255, 0.92);
+  --nav-text: #1a2332;
+  --nav-text-light: #64748b;
+  --nav-primary: #2563eb;
+  --nav-primary-dark: #1d4ed8;
+  --nav-primary-light: #60a5fa;
+  --nav-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  --nav-shadow-hover: 0 6px 30px rgba(37, 99, 235, 0.2);
+  --nav-border: rgba(0, 0, 0, 0.06);
+  --nav-radius: 10px;
+  --nav-transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --nav-container: 1320px;
+}
+
+/* =========================================================
+   NAVBAR BASE
+   ========================================================= */
+.home-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  /* Padding now scales with viewport width instead of a flat 32px,
+     so the navbar keeps a sensible edge margin on large monitors
+     instead of leaving huge unused gutters. */
+  padding: 18px clamp(20px, 4vw, 64px);
+  background: transparent;
+  transition: all var(--nav-transition);
+  font-family: "Inter", sans-serif;
+}
+
+.home-navbar-inner {
+  max-width: var(--nav-container);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  position: relative;
+  width: 100%;
+}
+
+/* =========================================================
+   NAVBAR SCROLLED STATE
+   ========================================================= */
+.home-navbar.scrolled {
+  padding: 12px clamp(20px, 4vw, 64px);
+  background: var(--nav-bg-scrolled);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--nav-shadow);
+  border-bottom: 1px solid var(--nav-border);
+  animation: slideDown 0.4s var(--nav-transition) forwards;
+}
+
+/* =========================================================
+   BRAND / LOGO
+   ========================================================= */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--nav-text);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+  transition: transform 0.3s var(--nav-transition);
+}
+
+.navbar-brand:hover {
+  transform: translateY(-2px);
+}
+
+.brand-mark {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  color: white;
+  font-size: 18px;
+  border-radius: var(--nav-radius);
+  background: linear-gradient(135deg, var(--nav-primary), #7c3aed);
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.25);
+  transition: all 0.3s var(--nav-transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-mark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.2));
+  transform: translateX(-100%);
+  transition: transform 0.6s var(--nav-transition);
+}
+
+.navbar-brand:hover .brand-mark::before {
+  transform: translateX(100%);
+}
+
+.navbar-brand:hover .brand-mark {
+  transform: rotate(-6deg) scale(1.05);
+  box-shadow: 0 6px 25px rgba(37, 99, 235, 0.35);
+}
+
+.navbar-brand .brand-text {
+  display: inline-block;
+  color: var(--nav-text);
+  transition: color 0.3s var(--nav-transition);
+}
+
+.navbar-brand:hover .brand-text {
+  color: var(--nav-primary);
+}
+
+/* =========================================================
+   NAV LINKS
+   ========================================================= */
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-link {
+  position: relative;
+  padding: 8px 18px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--nav-text-light);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s var(--nav-transition);
+  cursor: pointer;
+}
+
+.nav-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background: transparent;
+  transition: background 0.3s var(--nav-transition);
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 4px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--nav-primary), var(--nav-primary-light));
+  transform: scaleX(0);
+  transform-origin: center;
+  border-radius: 2px;
+  transition: transform 0.3s var(--nav-transition);
+}
+
+.nav-link:hover {
+  color: var(--nav-primary);
+}
+
+.nav-link:hover::before {
+  background: rgba(37, 99, 235, 0.06);
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+.nav-link.active {
+  color: var(--nav-primary);
+  font-weight: 600;
+}
+
+.nav-link.active::before {
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.nav-link.active::after {
+  transform: scaleX(1);
+}
+
+/* =========================================================
+   NAVBAR ACTIONS
+   ========================================================= */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navbar-divider {
+  width: 1px;
+  height: 30px;
+  background: var(--nav-border);
+  margin: 0 6px;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: none;
+  background: transparent;
+  color: var(--nav-text-light);
+  font-size: 18px;
+  border-radius: var(--nav-radius);
+  cursor: pointer;
+  transition: all 0.3s var(--nav-transition);
+  position: relative;
+}
+
+.icon-btn:hover {
+  background: rgba(37, 99, 235, 0.06);
+  color: var(--nav-primary);
+  transform: translateY(-2px);
+}
+
+.icon-btn:active {
+  transform: scale(0.95);
+}
+
+.icon-btn .badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  background: #ef4444;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  animation: pulse-badge 2s ease-in-out infinite;
+}
+
+@keyframes pulse-badge {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.btn-login {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 24px;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  background: linear-gradient(135deg, var(--nav-primary), var(--nav-primary-dark));
+  border: none;
+  border-radius: var(--nav-radius);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s var(--nav-transition);
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-login::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transform: skewX(-20deg);
+  transition: left 0.6s var(--nav-transition);
+}
+
+.btn-login:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--nav-shadow-hover);
+}
+
+.btn-login:hover::before {
+  left: 140%;
+}
+
+.btn-login:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.btn-login i {
+  font-size: 16px;
+  transition: transform 0.3s var(--nav-transition);
+}
+
+.btn-login:hover i {
+  transform: rotate(5deg);
+}
+
+/* =========================================================
+   MOBILE HAMBURGER
+   ========================================================= */
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--nav-radius);
+  transition: all 0.3s var(--nav-transition);
+}
+
+.hamburger-btn:hover {
+  background: rgba(37, 99, 235, 0.06);
+}
+
+.hamburger-btn span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--nav-text);
+  border-radius: 2px;
+  transition: all 0.3s var(--nav-transition);
+}
+
+.hamburger-btn.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-btn.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* =========================================================
+   MOBILE MENU
+   ========================================================= */
+.mobile-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 16px;
+  right: 16px;
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--nav-radius);
+  border: 1px solid var(--nav-border);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+  padding: 12px 8px;
+  flex-direction: column;
+  gap: 4px;
+  animation: slideDown 0.3s var(--nav-transition) forwards;
+}
+
+.mobile-menu.open {
+  display: flex;
+}
+
+.mobile-menu .nav-link {
+  padding: 10px 16px;
+  font-size: 15px;
+  border-radius: 8px;
+}
+
+.mobile-menu .nav-link::before {
+  display: none;
+}
+
+.mobile-menu .nav-link::after {
+  display: none;
+}
+
+.mobile-menu .nav-link:hover {
+  background: rgba(37, 99, 235, 0.06);
+}
+
+.mobile-menu .nav-link.active {
+  background: rgba(37, 99, 235, 0.08);
+}
+
+.mobile-menu .nav-divider {
+  height: 1px;
+  background: var(--nav-border);
+  margin: 6px 12px;
+}
+
+.mobile-menu .mobile-login {
+  margin-top: 4px;
+}
+
+.mobile-menu .mobile-login .btn-login {
+  width: 100%;
+  justify-content: center;
+  padding: 10px;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 1024px) {
+  .home-navbar {
+    padding: 14px 24px;
+  }
+
+  .home-navbar.scrolled {
+    padding: 10px 24px;
+  }
+}
+
+@media (max-width: 900px) {
+  .navbar-links {
+    display: none;
+  }
+
+  .hamburger-btn {
+    display: flex;
+  }
+
+  .mobile-menu {
+    display: none;
+  }
+
+  .mobile-menu.open {
+    display: flex;
+  }
+
+  .navbar-divider {
+    display: none;
+  }
+
+  .icon-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+
+  .btn-login {
+    padding: 7px 18px;
+    font-size: 13px;
+  }
+
+  .navbar-brand {
+    font-size: 18px;
+  }
+
+  .brand-mark {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-navbar {
+    padding: 12px 16px;
+  }
+
+  .home-navbar.scrolled {
+    padding: 8px 16px;
+  }
+
+  .icon-btn {
+    display: none;
+  }
+
+  .btn-login {
+    padding: 6px 16px;
+    font-size: 12px;
+  }
+
+  .navbar-brand {
+    font-size: 16px;
+  }
+
+  .brand-mark {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+
+  .mobile-menu {
+    left: 12px;
+    right: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-navbar {
+    padding: 10px 12px;
+  }
+
+  .home-navbar.scrolled {
+    padding: 6px 12px;
+  }
+
+  .navbar-brand {
+    font-size: 14px;
+    gap: 8px;
+  }
+
+  .brand-mark {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  .btn-login {
+    padding: 5px 12px;
+    font-size: 11px;
+  }
+
+  .mobile-menu .nav-link {
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+}
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mobile-menu.open .nav-link {
+  animation: fadeInUp 0.3s var(--nav-transition) forwards;
+}
+
+.mobile-menu.open .nav-link:nth-child(1) { animation-delay: 0.05s; }
+.mobile-menu.open .nav-link:nth-child(2) { animation-delay: 0.1s; }
+.mobile-menu.open .nav-link:nth-child(3) { animation-delay: 0.15s; }
+.mobile-menu.open .nav-link:nth-child(4) { animation-delay: 0.2s; }
+.mobile-menu.open .nav-divider { animation-delay: 0.25s; }
+.mobile-menu.open .mobile-login { animation-delay: 0.3s; }
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .home-navbar,
+  .home-navbar *,
+  .home-navbar *::before,
+  .home-navbar *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .mobile-menu.open .nav-link {
+    animation: none !important;
+  }
+}
+
+/* Focus styles for keyboard navigation */
+.nav-link:focus-visible,
+.icon-btn:focus-visible,
+.btn-login:focus-visible,
+.hamburger-btn:focus-visible {
+  outline: 2px solid var(--nav-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* =========================================================
+   NOTE ON DARK MODE
+   =========================================================
+   The previous @media (prefers-color-scheme: dark) block has been
+   removed. It swapped --nav-text to a near-white color while the
+   navbar background stayed white/transparent (non-scrolled state),
+   which made the "SmartServe" brand text nearly invisible on
+   devices/browsers set to dark mode — this was the cause of the
+   washed-out logo text in your screenshot. The rest of the site
+   has no dark theme, so the navbar now stays on the light palette
+   unconditionally for consistent contrast.
+   ========================================================= */

@@ -1,0 +1,777 @@
+/* =========================================================
+   Payment Page - Clean Modern UI
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* =========================================================
+   Page Container
+   ========================================================= */
+.payment-page {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #f0f4ff 0%, #e8edf5 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* =========================================================
+   Container
+   ========================================================= */
+.payment-container {
+    width: 100%;
+    max-width: 560px;
+    position: relative;
+    z-index: 1;
+    animation: slideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* =========================================================
+   Payment Card
+   ========================================================= */
+.payment-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 1.8rem 1.8rem 1.5rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.4s ease;
+}
+
+.payment-card:hover {
+    box-shadow: 0 25px 80px rgba(102, 126, 234, 0.10);
+}
+
+/* =========================================================
+   Payment Header - Clean & Simple
+   ========================================================= */
+.payment-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.payment-header .payment-subtitle {
+    color: #6c6c8a;
+    font-size: 0.95rem;
+    margin-bottom: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+/* =========================================================
+   Service Summary
+   ========================================================= */
+.service-summary {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 1.2rem;
+    background: linear-gradient(135deg, #f8faff, #f0f4ff);
+    border-radius: 14px;
+    border: 1px solid rgba(102, 126, 234, 0.08);
+    margin-bottom: 1.2rem;
+}
+
+.service-summary-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+.service-summary-details {
+    flex: 1;
+}
+
+.service-summary-details h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #1a1a2e;
+    margin-bottom: 0.1rem;
+}
+
+.service-summary-details p {
+    font-size: 0.8rem;
+    color: #4a4a6a;
+    margin-bottom: 0;
+    line-height: 1.4;
+}
+
+.service-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: #dcfce7;
+    color: #16a34a;
+    padding: 0.2rem 0.6rem;
+    border-radius: 50px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.service-status::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #16a34a;
+    display: inline-block;
+}
+
+/* =========================================================
+   Booking Info Grid
+   ========================================================= */
+.booking-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+}
+
+.booking-info-box {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 0.8rem;
+    background: #f8faff;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.booking-info-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #667eea20, #764ba220);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.9rem;
+    color: #667eea;
+}
+
+.booking-info-box > div {
+    flex: 1;
+}
+
+.booking-info-box span {
+    display: block;
+    font-size: 0.55rem;
+    color: #6c6c8a;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+}
+
+.booking-info-box strong {
+    display: block;
+    font-size: 0.8rem;
+    color: #1a1a2e;
+    font-weight: 600;
+}
+
+/* =========================================================
+   Form Sections
+   ========================================================= */
+.form-section {
+    margin-bottom: 1rem;
+}
+
+.form-label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: #1a1a2e;
+    margin-bottom: 0.3rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.6rem 0.9rem;
+    border-radius: 10px;
+    border: 2px solid #e8edf5;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    background: #fafcff;
+    color: #1a1a2e;
+    font-family: 'Inter', sans-serif;
+}
+
+.form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.08);
+    outline: none;
+    background: #ffffff;
+}
+
+.form-control::placeholder {
+    color: #a0a0b8;
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 70px;
+}
+
+/* =========================================================
+   Selected Address Preview
+   ========================================================= */
+.selected-address {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 0.7rem 0.9rem;
+    background: #f0f4ff;
+    border-radius: 10px;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.selected-address-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #667eea20, #764ba220);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 0.05rem;
+    font-size: 0.8rem;
+    color: #667eea;
+}
+
+.selected-address strong {
+    display: block;
+    font-size: 0.75rem;
+    color: #1a1a2e;
+    font-weight: 600;
+}
+
+.selected-address p {
+    font-size: 0.75rem;
+    color: #4a4a6a;
+    margin-bottom: 0;
+    line-height: 1.4;
+}
+
+/* =========================================================
+   No Address
+   ========================================================= */
+.no-address {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 0.9rem;
+    background: #fef2f2;
+    border-radius: 10px;
+    border: 1px solid rgba(239, 68, 68, 0.1);
+}
+
+.no-address span {
+    font-size: 1.2rem;
+    color: #ef4444;
+    opacity: 0.5;
+}
+
+.no-address strong {
+    display: block;
+    font-size: 0.75rem;
+    color: #1a1a2e;
+}
+
+.no-address p {
+    font-size: 0.7rem;
+    color: #6c6c8a;
+    margin-bottom: 0;
+}
+
+/* =========================================================
+   Price Section
+   ========================================================= */
+.price-section {
+    margin-top: 1.2rem;
+    padding: 0.8rem 1rem;
+    background: #f8faff;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.2rem 0;
+    font-size: 0.85rem;
+    color: #4a4a6a;
+}
+
+.price-row strong {
+    color: #1a1a2e;
+    font-weight: 600;
+}
+
+.price-row .free {
+    color: #16a34a;
+    font-weight: 500;
+}
+
+.price-section hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #e8edf5, transparent);
+    margin: 0.4rem 0;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.2rem 0;
+}
+
+.total-row strong {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #667eea;
+}
+
+.total-row > div strong {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #1a1a2e;
+}
+
+.total-row > div small {
+    display: block;
+    font-size: 0.6rem;
+    color: #6c6c8a;
+    font-weight: 400;
+}
+
+/* =========================================================
+   Confirm Button
+   ========================================================= */
+.confirm-booking-button {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.2rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.25);
+}
+
+.confirm-booking-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    transition: left 0.6s ease;
+}
+
+.confirm-booking-button:hover:not(:disabled)::before {
+    left: 100%;
+}
+
+.confirm-booking-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 35px rgba(102, 126, 234, 0.35);
+}
+
+.confirm-booking-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.confirm-booking-button .spinner-border {
+    width: 1.1rem;
+    height: 1.1rem;
+    border-width: 0.15rem;
+}
+
+/* =========================================================
+   Back Button - Below Confirm
+   ========================================================= */
+.payment-card .back-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    background: transparent;
+    border: none;
+    color: #6c6c8a;
+    padding: 0.6rem 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+    margin-top: 0.5rem;
+    width: 100%;
+}
+
+.payment-card .back-button:hover {
+    color: #667eea;
+    transform: translateX(-2px);
+}
+
+/* =========================================================
+   Payment Note
+   ========================================================= */
+.payment-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.4rem;
+    padding: 0.6rem 0.8rem;
+    background: #fefce8;
+    border-radius: 10px;
+    border: 1px solid rgba(245, 158, 11, 0.15);
+    margin-top: 0.8rem;
+}
+
+.payment-note span:first-child {
+    font-size: 0.9rem;
+    color: #f59e0b;
+    margin-top: 0.05rem;
+}
+
+.payment-note span:last-child {
+    font-size: 0.7rem;
+    color: #6c6c8a;
+    line-height: 1.4;
+}
+
+/* =========================================================
+   Loading State
+   ========================================================= */
+.payment-page .payment-container .payment-card.text-center {
+    text-align: center;
+    padding: 3rem 2rem;
+}
+
+.payment-page .payment-container .payment-card.text-center .spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+.payment-page .payment-container .payment-card.text-center p {
+    color: #6c6c8a;
+    font-size: 0.95rem;
+}
+
+/* =========================================================
+   Error State
+   ========================================================= */
+.payment-error-icon {
+    font-size: 3.5rem;
+    color: #ef4444;
+    opacity: 0.3;
+    display: block;
+    margin-bottom: 0.8rem;
+}
+
+.payment-card.text-center h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 0.3rem;
+}
+
+.payment-card.text-center .text-muted {
+    color: #6c6c8a;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+}
+
+.payment-card.text-center .btn-primary {
+    padding: 0.6rem 2rem;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border: none;
+    color: #ffffff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.payment-card.text-center .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
+}
+
+/* =========================================================
+   Responsive Design
+   ========================================================= */
+@media (max-width: 768px) {
+    .payment-page {
+        padding: 1rem;
+        align-items: flex-start;
+        padding-top: 2rem;
+    }
+
+    .payment-card {
+        padding: 1.2rem 1rem;
+        border-radius: 16px;
+    }
+
+    .payment-header .payment-subtitle {
+        font-size: 0.85rem;
+    }
+
+    .booking-info-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.6rem;
+    }
+
+    .service-summary {
+        padding: 0.7rem 1rem;
+        flex-wrap: wrap;
+    }
+
+    .service-summary-details h2 {
+        font-size: 1rem;
+    }
+
+    .service-summary-details p {
+        font-size: 0.75rem;
+    }
+
+    .total-row strong {
+        font-size: 1rem;
+    }
+
+    .price-row {
+        font-size: 0.8rem;
+    }
+
+    .confirm-booking-button {
+        font-size: 0.9rem;
+        padding: 0.65rem;
+    }
+
+    .payment-card .back-button {
+        font-size: 0.8rem;
+        padding: 0.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .payment-page {
+        padding: 0.75rem;
+        padding-top: 1.5rem;
+    }
+
+    .payment-card {
+        padding: 0.8rem 0.7rem;
+        border-radius: 14px;
+    }
+
+    .payment-header .payment-subtitle {
+        font-size: 0.8rem;
+    }
+
+    .booking-info-grid {
+        grid-template-columns: 1fr;
+        gap: 0.4rem;
+    }
+
+    .booking-info-box {
+        padding: 0.4rem 0.6rem;
+    }
+
+    .booking-info-box strong {
+        font-size: 0.75rem;
+    }
+
+    .service-summary {
+        flex-direction: column;
+        text-align: center;
+        padding: 0.7rem;
+    }
+
+    .service-summary-details h2 {
+        font-size: 0.9rem;
+    }
+
+    .service-status {
+        font-size: 0.6rem;
+    }
+
+    .form-control {
+        padding: 0.45rem 0.7rem;
+        font-size: 0.85rem;
+        border-radius: 8px;
+    }
+
+    .selected-address {
+        padding: 0.5rem 0.7rem;
+    }
+
+    .selected-address p {
+        font-size: 0.7rem;
+    }
+
+    .price-section {
+        padding: 0.6rem 0.8rem;
+    }
+
+    .total-row strong {
+        font-size: 0.95rem;
+    }
+
+    .total-row > div strong {
+        font-size: 0.85rem;
+    }
+
+    .confirm-booking-button {
+        font-size: 0.85rem;
+        padding: 0.55rem;
+        border-radius: 10px;
+        margin-top: 1rem;
+    }
+
+    .payment-card .back-button {
+        font-size: 0.75rem;
+        padding: 0.4rem;
+        margin-top: 0.3rem;
+    }
+
+    .payment-note {
+        padding: 0.5rem 0.6rem;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .payment-note span:last-child {
+        font-size: 0.65rem;
+    }
+
+    .no-address {
+        flex-direction: column;
+        text-align: center;
+        padding: 0.6rem;
+    }
+
+    .payment-error-icon {
+        font-size: 2.8rem;
+    }
+
+    .payment-card.text-center h3 {
+        font-size: 1.1rem;
+    }
+
+    .payment-card.text-center .btn-primary {
+        font-size: 0.85rem;
+        padding: 0.5rem 1.5rem;
+    }
+}
+
+/* =========================================================
+   Animation - Fade In
+   ========================================================= */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.payment-card .service-summary,
+.payment-card .booking-info-grid,
+.payment-card .form-section,
+.payment-card .price-section {
+    animation: fadeInUp 0.4s ease both;
+}
+
+.payment-card .service-summary { animation-delay: 0.05s; }
+.payment-card .booking-info-grid { animation-delay: 0.1s; }
+.payment-card .form-section { animation-delay: 0.15s; }
+.payment-card .price-section { animation-delay: 0.2s; }
+
+/* =========================================================
+   Scrollbar
+   ========================================================= */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #5a67d8, #6b3fa0);
+}
+
+/* =========================================================
+   Toast Override
+   ========================================================= */
+.Toastify__toast {
+    border-radius: 12px !important;
+    font-family: 'Inter', sans-serif !important;
+}
+
+.Toastify__toast--success {
+    background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+}
+
+.Toastify__toast--error {
+    background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+}
+
+.Toastify__toast--warning {
+    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+}

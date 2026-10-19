@@ -1,0 +1,1425 @@
+/* =========================================================
+   SmartServe — Home
+   Premium editorial landing page.
+
+   All rules are scoped under `.home` so this stylesheet
+   cannot leak into dashboard / auth / any other route.
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+
+/* =========================================================
+   1. DESIGN TOKENS  (scoped to .home)
+   ========================================================= */
+.home {
+  /* Type */
+  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Neutrals */
+  --ink-900: #0b0f14;
+  --ink-800: #161b22;
+  --ink-700: #232a33;
+  --ink-600: #3a424d;
+  --ink-500: #5c6470;
+  --ink-400: #8a93a0;
+  --ink-300: #b9c1cc;
+  --ink-200: #d9dfe6;
+  --ink-100: #eef1f5;
+  --ink-50:  #f7f8fa;
+  --paper:   #ffffff;
+
+  /* Accents */
+  --accent-orange: #ff6b2b;
+  --accent-blue:   #2f5bff;
+  --accent-gold:   #d99a1a;
+  --accent-plum:   #6b3fd4;
+
+  /* Card tint backgrounds */
+  --tint-blue:   #eaf0ff;
+  --tint-orange: #ffefe4;
+  --tint-gold:   #fff4dc;
+  --tint-plum:   #f1ebff;
+
+  /* Lines & surfaces */
+  --line:        rgba(11, 15, 20, 0.10);
+  --line-soft:   rgba(11, 15, 20, 0.06);
+  --surface:     #ffffff;
+  --surface-alt: #f7f8fa;
+
+  /* Radius */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(11, 15, 20, 0.04);
+  --shadow-md: 0 10px 30px rgba(11, 15, 20, 0.06);
+  --shadow-lg: 0 30px 60px rgba(11, 15, 20, 0.10);
+
+  /* Rhythm */
+  --space-section: clamp(70px, 9vw, 140px);
+  --space-block:   clamp(40px, 5vw, 72px);
+  --container:     min(1280px, 92vw);
+
+  /* Sticky-navbar offset for anchor jumps */
+  --anchor-offset: 90px;
+
+  /* Motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Theme-toggle tokens (consumed by ThemeToggle.css) */
+  --ss-surface-solid:  #ffffff;
+  --ss-surface-raised: #f7f8fa;
+  --ss-border:         rgba(11, 15, 20, 0.12);
+  --ss-accent:         #ff6b2b;
+  --ss-on-accent:      #ffffff;
+  --ss-text-soft:      #5c6470;
+  --ss-shadow-md:      0 10px 30px rgba(11, 15, 20, 0.10);
+  --ss-ease:           cubic-bezier(0.22, 1, 0.36, 1);
+  --ss-ease-bounce:    cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Base rendering */
+  font-family: var(--font-body);
+  color: var(--ink-800);
+  background: var(--paper);
+  min-height: 100vh;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* =========================================================
+   2. SCOPE RESET
+   ========================================================= */
+.home *,
+.home *::before,
+.home *::after {
+  box-sizing: border-box;
+}
+
+.home img {
+  display: block;
+  max-width: 100%;
+}
+
+.home a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.home ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.home button {
+  font-family: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home *,
+  .home *::before,
+  .home *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+
+/* =========================================================
+   3. LAYOUT PRIMITIVES
+   ========================================================= */
+.home .home-container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: 0;
+}
+
+.home .home__main {
+  display: block;
+}
+
+.home .section-label {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+  margin: 0 0 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.home .section-label::before {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: var(--ink-400);
+}
+
+.home .section-heading {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.9rem, 1rem + 3vw, 3.4rem);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: var(--ink-900);
+  margin: 0;
+}
+
+.home .link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--ink-900);
+  border-bottom: 1px solid var(--ink-900);
+  padding-bottom: 2px;
+  transition: gap 0.25s var(--ease), color 0.25s var(--ease);
+}
+
+.home .link-arrow:hover {
+  gap: 0.9rem;
+  color: var(--accent-orange);
+  border-color: var(--accent-orange);
+}
+
+
+/* =========================================================
+   4. BUTTONS
+   ========================================================= */
+.home .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.25s var(--ease),
+              color 0.25s var(--ease),
+              border-color 0.25s var(--ease),
+              transform 0.25s var(--ease),
+              box-shadow 0.25s var(--ease);
+  white-space: nowrap;
+}
+
+.home .btn--primary {
+  background: var(--ink-900);
+  color: #fff;
+}
+
+.home .btn--primary:hover {
+  background: #000;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.home .btn--ghost {
+  background: transparent;
+  color: var(--ink-900);
+  border-color: var(--line);
+}
+
+.home .btn--ghost:hover {
+  background: var(--ink-50);
+  border-color: var(--ink-300);
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   5. PUBLIC NAVBAR
+   ========================================================= */
+.home .home-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.home .home-nav__inner {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1.1rem 0;
+}
+
+.home .home-nav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  color: var(--ink-900);
+}
+
+.home .home-nav__logo {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.home .home-nav__links {
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+}
+
+.home .home-nav__links ul {
+  display: flex;
+  gap: 2.2rem;
+}
+
+.home .home-nav__links a {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--ink-600);
+  transition: color 0.2s var(--ease);
+  position: relative;
+}
+
+.home .home-nav__links a:hover {
+  color: var(--ink-900);
+}
+
+.home .home-nav__anchor {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--ink-600);
+  transition: color 0.2s var(--ease);
+}
+
+.home .home-nav__anchor:hover {
+  color: var(--ink-900);
+}
+
+.home .home-nav__login {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1.3rem;
+  border-radius: var(--radius-sm);
+  background: var(--ink-900);
+  color: #fff !important;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: background 0.25s var(--ease), transform 0.25s var(--ease);
+}
+
+.home .home-nav__login:hover {
+  background: #000;
+  transform: translateY(-1px);
+}
+
+/* Mobile close (X) — hidden on desktop */
+.home .home-nav__close {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.3rem;
+  color: var(--ink-900);
+  padding: 0;
+  line-height: 1;
+}
+
+/* Mobile hamburger — hidden on desktop */
+.home .home-nav__toggle {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 300;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  background: var(--ink-900);
+  border: none;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0;
+  transition: transform 0.25s var(--ease), opacity 0.25s var(--ease);
+}
+
+.home .home-nav__toggle-bar {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: #fff;
+  border-radius: 2px;
+}
+
+.home .home-nav__toggle.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.85);
+}
+
+/* Mobile backdrop */
+.home .home-nav__backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 15, 20, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 150;
+  opacity: 0;
+  transition: opacity 0.25s var(--ease);
+}
+
+.home .home-nav__backdrop.is-active {
+  display: block;
+  opacity: 1;
+}
+
+
+/* =========================================================
+   6. HERO
+   ========================================================= */
+.home .hero {
+  padding-top: clamp(70px, 9vw, 130px);
+  padding-bottom: clamp(40px, 5vw, 70px);
+  text-align: center;
+}
+
+.home .hero__eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+  margin: 0 0 clamp(1.5rem, 3vw, 2.4rem);
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.home .hero__eyebrow-line {
+  display: inline-block;
+  width: clamp(20px, 4vw, 48px);
+  height: 1px;
+  background: var(--ink-300);
+}
+
+.home .hero__heading {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 1rem + 6vw, 5.2rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  color: var(--ink-900);
+  margin: 0 auto clamp(1.5rem, 3vw, 2.2rem);
+  max-width: 18ch;
+}
+
+.home .hero__heading em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--accent-orange);
+}
+
+.home .hero__sub {
+  max-width: 56ch;
+  margin: 0 auto clamp(2rem, 3vw, 3rem);
+  font-size: clamp(0.98rem, 0.9rem + 0.25vw, 1.1rem);
+  line-height: 1.65;
+  color: var(--ink-500);
+  padding-inline: 1rem;
+}
+
+.home .hero__cta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+
+/* =========================================================
+   7. HERO VISUAL — asymmetric composition
+   ========================================================= */
+.home .hero-visual {
+  padding-block: clamp(30px, 4vw, 60px) clamp(60px, 8vw, 120px);
+}
+
+.home .hero-visual__grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: clamp(14px, 1.6vw, 22px);
+  align-items: stretch;
+}
+
+.home .hero-visual__figure {
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--surface-alt);
+}
+
+.home .hero-visual__figure--primary {
+  grid-row: 1 / span 2;
+  min-height: clamp(360px, 42vw, 560px);
+}
+
+.home .hero-visual__figure--secondary {
+  grid-column: 2 / span 2;
+  min-height: clamp(180px, 20vw, 260px);
+}
+
+.home .hero-visual__image {
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  background-color: var(--surface-alt);
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.6s var(--ease);
+}
+
+/* A subtle tint sits on top of the photo (not baked into the
+   image itself) so the panel still reads as part of the page's
+   palette, and adapts a touch in dark mode below. */
+.home .hero-visual__image--primary,
+.home .hero-visual__image--secondary {
+  background-blend-mode: normal;
+  box-shadow: inset 0 0 0 1000px rgba(11, 15, 20, 0.02);
+}
+
+.home .hero-visual__figure:hover .hero-visual__image {
+  transform: scale(1.04);
+}
+
+
+/* =========================================================
+   8. POPULAR SERVICES  (anchor: #popular-services)
+   ========================================================= */
+.home .popular {
+  padding-block: var(--space-section);
+  border-top: 1px solid var(--line-soft);
+  scroll-margin-top: var(--anchor-offset);
+}
+
+.home .popular__grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: end;
+}
+
+.home .popular__copy {
+  font-size: clamp(0.98rem, 0.9rem + 0.2vw, 1.08rem);
+  line-height: 1.7;
+  color: var(--ink-500);
+  margin: 0 0 1.5rem;
+  max-width: 46ch;
+}
+
+
+/* =========================================================
+   9. STAGGERED SERVICE CARDS
+   ========================================================= */
+.home .stagger {
+  padding-block: var(--space-block) var(--space-section);
+}
+
+.home .stagger__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(14px, 1.6vw, 22px);
+  align-items: start;
+}
+
+.home .stagger__card {
+  padding: clamp(1.5rem, 2vw, 2.2rem);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  min-height: clamp(260px, 26vw, 340px);
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+
+.home .stagger__grid > :nth-child(1) { margin-top: 0; }
+.home .stagger__grid > :nth-child(2) { margin-top: clamp(30px, 4vw, 64px); }
+.home .stagger__grid > :nth-child(3) { margin-top: 0; }
+.home .stagger__grid > :nth-child(4) { margin-top: clamp(30px, 4vw, 64px); }
+
+.home .stagger__card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+}
+
+.home .stagger__card--blue   { background: var(--tint-blue);   }
+.home .stagger__card--orange { background: var(--tint-orange); }
+.home .stagger__card--gold   { background: var(--tint-gold);   }
+.home .stagger__card--plum   { background: var(--tint-plum);   }
+
+.home .stagger__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.4rem;
+  box-shadow: var(--shadow-sm);
+}
+
+/* The glyph inherits its color from the badge's `color`
+   property below, per tone — flat dot is replaced by a
+   proper line icon but the badge mechanics stay the same */
+.home .stagger__icon-glyph {
+  width: 22px;
+  height: 22px;
+}
+
+.home .stagger__card--blue   .stagger__icon { color: var(--accent-blue); }
+.home .stagger__card--orange .stagger__icon { color: var(--accent-orange); }
+.home .stagger__card--gold   .stagger__icon { color: var(--accent-gold); }
+.home .stagger__card--plum   .stagger__icon { color: var(--accent-plum); }
+
+.home .stagger__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.05rem, 0.9rem + 0.4vw, 1.25rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ink-900);
+  margin: 0;
+}
+
+.home .stagger__text {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--ink-600);
+  margin: 0;
+  flex: 1;
+}
+
+.home .stagger__link {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--ink-900);
+  margin-top: auto;
+  padding-top: 0.6rem;
+  border-top: 1px solid rgba(11, 15, 20, 0.08);
+  transition: color 0.25s var(--ease), letter-spacing 0.25s var(--ease);
+}
+
+.home .stagger__link:hover {
+  color: var(--accent-orange);
+  letter-spacing: 0.02em;
+}
+
+
+/* =========================================================
+   10. OUR SERVICES  (anchor: #our-services)
+   ========================================================= */
+.home .services {
+  padding-block: var(--space-section);
+  border-top: 1px solid var(--line-soft);
+  scroll-margin-top: var(--anchor-offset);
+}
+
+.home .services__header {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: clamp(1.5rem, 5vw, 5rem);
+  align-items: end;
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+}
+
+.home .services__lede {
+  font-size: clamp(0.95rem, 0.9rem + 0.2vw, 1.05rem);
+  line-height: 1.7;
+  color: var(--ink-500);
+  margin: 0;
+  max-width: 42ch;
+}
+
+.home .services__gallery {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: clamp(10px, 1.2vw, 16px);
+}
+
+.home .service-card {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--surface-alt);
+  transition: transform 0.35s var(--ease);
+}
+
+.home .service-card:hover {
+  transform: translateY(-4px);
+}
+
+.home .service-card__image {
+  position: absolute;
+  inset: 0;
+  background-color: var(--surface-alt);
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.6s var(--ease);
+}
+
+.home .service-card:hover .service-card__image {
+  transform: scale(1.06);
+}
+
+/* A faint per-service colour wash sits between the photo and
+   the dark bottom overlay below, so the fixed brand palette
+   still carries through even though the tile is now a real
+   photo (identical treatment in light and dark mode, same as
+   the hero photos — photography itself doesn't recolor, only
+   the wash and surrounding chrome do). */
+.home .service-card--slate::before,
+.home .service-card--amber::before,
+.home .service-card--terracotta::before,
+.home .service-card--sea::before,
+.home .service-card--ink::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  mix-blend-mode: color;
+  pointer-events: none;
+}
+
+.home .service-card--slate::before      { background: #3c4656; opacity: 0.55; }
+.home .service-card--amber::before      { background: #e09b3a; opacity: 0.45; }
+.home .service-card--terracotta::before { background: #d77353; opacity: 0.45; }
+.home .service-card--sea::before        { background: #4a8ea3; opacity: 0.5;  }
+.home .service-card--ink::before        { background: #2a3342; opacity: 0.55; }
+
+.home .service-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(0, 0, 0, 0.75) 100%);
+  z-index: 1;
+}
+
+.home .service-card__body {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 2;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.home .service-card__title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(0.88rem, 0.82rem + 0.15vw, 1rem);
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  margin: 0;
+}
+
+.home .service-card__meta {
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+
+/* =========================================================
+   11. ABOUT  (anchor: #about)
+   ========================================================= */
+.home .about {
+  padding-block: var(--space-section);
+  border-top: 1px solid var(--line-soft);
+  scroll-margin-top: var(--anchor-offset);
+}
+
+.home .about__grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.home .about__copy {
+  font-size: clamp(0.98rem, 0.9rem + 0.2vw, 1.08rem);
+  line-height: 1.7;
+  color: var(--ink-500);
+  margin: 0 0 2rem;
+  max-width: 48ch;
+}
+
+.home .about__stats {
+  display: flex;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  flex-wrap: wrap;
+}
+
+.home .about__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.home .about__stat-value {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 1rem + 1.4vw, 2.2rem);
+  font-weight: 600;
+  color: var(--ink-900);
+  letter-spacing: -0.03em;
+}
+
+.home .about__stat-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+}
+
+
+/* =========================================================
+   12. CONTACT  (anchor: #contact)
+   ========================================================= */
+.home .contact {
+  padding-block: var(--space-section);
+  border-top: 1px solid var(--line-soft);
+  scroll-margin-top: var(--anchor-offset);
+}
+
+.home .contact__grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: start;
+}
+
+.home .contact__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin: 0 0 2rem;
+}
+
+.home .contact__list li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.home .contact__label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+}
+
+.home .contact__list a,
+.home .contact__list span:not(.contact__label) {
+  font-size: 1rem;
+  color: var(--ink-900);
+  font-weight: 500;
+}
+
+.home .contact__list a:hover {
+  color: var(--accent-orange);
+}
+
+
+/* =========================================================
+   13. CLOSING CTA
+   ========================================================= */
+.home .home-cta {
+  padding-block: var(--space-section);
+}
+
+.home .home-cta__panel {
+  padding: clamp(2.5rem, 6vw, 5rem) clamp(1.5rem, 4vw, 4rem);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, #0b0f14 0%, #161b22 100%);
+  color: #fff;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.home .home-cta__panel::after {
+  content: "";
+  position: absolute;
+  top: -30%;
+  right: -10%;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 107, 43, 0.28), transparent 70%);
+  pointer-events: none;
+}
+
+.home .home-cta .section-label {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.home .home-cta .section-label::before {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.home .home-cta__heading {
+  color: #fff;
+  max-width: 22ch;
+  margin-inline: auto;
+}
+
+.home .home-cta__actions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: clamp(1.5rem, 3vw, 2.2rem);
+  position: relative;
+  z-index: 1;
+}
+
+.home .home-cta .btn--primary {
+  background: #fff;
+  color: var(--ink-900);
+}
+
+.home .home-cta .btn--primary:hover {
+  background: #f2f3f5;
+}
+
+.home .home-cta .btn--ghost {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.home .home-cta .btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+
+/* =========================================================
+   14. FOOTER
+   ========================================================= */
+.home .home-footer {
+  border-top: 1px solid var(--line-soft);
+  padding-block: clamp(3rem, 5vw, 5rem) 2rem;
+  background: var(--ink-50);
+}
+
+.home .home-footer__top {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.home .home-footer__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--ink-900);
+}
+
+.home .home-footer__logo {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.home .home-footer__col h4 {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+  margin: 0 0 1rem;
+}
+
+.home .home-footer__col ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.home .home-footer__col a {
+  font-size: 0.9rem;
+  color: var(--ink-600);
+  transition: color 0.2s var(--ease);
+}
+
+.home .home-footer__col a:hover {
+  color: var(--ink-900);
+}
+
+.home .home-footer__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1.75rem;
+  font-size: 0.82rem;
+  color: var(--ink-500);
+  flex-wrap: wrap;
+}
+
+.home .home-footer__legal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.home .home-footer__legal .dot {
+  opacity: 0.5;
+}
+
+
+/* =========================================================
+   15. RESPONSIVE
+   ========================================================= */
+
+/* Tablet landscape / small desktop */
+@media (max-width: 1200px) {
+  .home .stagger__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(14px, 2vw, 20px);
+  }
+
+  .home .stagger__grid > :nth-child(1),
+  .home .stagger__grid > :nth-child(2),
+  .home .stagger__grid > :nth-child(3),
+  .home .stagger__grid > :nth-child(4) {
+    margin-top: 0;
+  }
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .home .hero-visual__grid {
+    grid-template-columns: 1.3fr 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .home .hero-visual__figure--primary {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    min-height: clamp(300px, 50vw, 420px);
+  }
+
+  .home .hero-visual__figure--secondary {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    min-height: clamp(300px, 50vw, 420px);
+  }
+
+  .home .hero-visual__caption {
+    grid-column: 1 / -1;
+    grid-row: 2 / 3;
+    padding-block: 1.25rem 0;
+    text-align: left;
+  }
+
+  .home .services__gallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .home .home-footer__top {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 2rem;
+  }
+}
+
+/* Navbar → mobile drawer */
+@media (max-width: 900px) {
+  .home {
+    --anchor-offset: 70px;
+  }
+
+  .home .home-nav__toggle {
+    display: flex;
+  }
+
+  .home .home-nav {
+    position: static;
+    background: transparent;
+    border-bottom: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .home .home-nav__inner {
+    padding: 1rem 0;
+    justify-content: flex-end;
+  }
+
+  .home .home-nav__brand {
+    display: none;
+  }
+
+  /* Drawer */
+  .home .home-nav__links {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: min(320px, 88vw);
+    background: #fff;
+    padding: 5rem 1.75rem 2rem;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 2rem;
+    transform: translateX(-100%);
+    transition: transform 0.32s var(--ease);
+    z-index: 200;
+    box-shadow: 4px 0 30px rgba(0, 0, 0, 0.12);
+    overflow-y: auto;
+  }
+
+  .home .home-nav__links.is-open {
+    transform: translateX(0);
+  }
+
+  .home .home-nav__links ul {
+    flex-direction: column;
+    gap: 0.35rem;
+    width: 100%;
+  }
+
+  .home .home-nav__links ul a,
+  .home .home-nav__anchor {
+    display: block;
+    padding: 0.85rem 0;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--ink-900);
+    border-bottom: 1px solid var(--line-soft);
+    width: 100%;
+  }
+
+  .home .home-nav__login {
+    width: 100%;
+    padding: 0.85rem 1.4rem;
+    font-size: 0.95rem;
+    justify-content: center;
+  }
+
+  .home .home-nav__close {
+    display: flex;
+    position: absolute;
+    top: 1.1rem;
+    right: 1.1rem;
+  }
+
+  /* Brand label inside drawer top */
+  .home .home-nav__links::before {
+    content: "SmartServe";
+    position: absolute;
+    top: 1.4rem;
+    left: 1.75rem;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--ink-900);
+    letter-spacing: -0.01em;
+  }
+
+  .home .hero {
+    padding-top: clamp(40px, 6vw, 70px);
+  }
+}
+
+/* Tablet portrait / large phone */
+@media (max-width: 768px) {
+  .home .popular__grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .home .services__header {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .home .services__gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .home .home-footer__top {
+    grid-template-columns: 1fr;
+    row-gap: 2rem;
+  }
+
+  .home .home-footer__bottom {
+    justify-content: flex-start;
+  }
+
+  .home .about__grid,
+  .home .contact__grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+/* Phone */
+@media (max-width: 576px) {
+  .home {
+    --anchor-offset: 60px;
+  }
+
+  .home .home-nav__toggle {
+    width: 40px;
+    height: 40px;
+    top: 0.75rem;
+    left: 0.75rem;
+  }
+
+  .home .hero__heading {
+    max-width: 14ch;
+  }
+
+  .home .hero__sub {
+    padding-inline: 0.5rem;
+  }
+
+  .home .hero__cta .btn {
+    flex: 1 1 auto;
+    min-width: 150px;
+  }
+
+  .home .hero-visual__grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+  }
+
+  .home .hero-visual__figure--primary,
+  .home .hero-visual__figure--secondary {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .home .hero-visual__figure--primary {
+    min-height: 240px;
+  }
+
+  .home .hero-visual__figure--secondary {
+    min-height: 180px;
+  }
+
+  .home .hero-visual__caption {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .home .stagger__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home .stagger__card {
+    min-height: auto;
+  }
+
+  .home .services__gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .home .service-card {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* Extra small */
+@media (max-width: 400px) {
+  .home .hero__cta {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .home .hero__cta .btn {
+    width: 100%;
+  }
+
+  .home .home-cta__actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .home .home-cta__actions .btn {
+    width: 100%;
+  }
+}
+
+
+/* =========================================================
+   16. DARK THEME  (scoped to Home only)
+   ========================================================= */
+[data-theme="dark"] .home {
+  /* Theme-toggle tokens */
+  --ss-surface-solid:  #0b0f14;
+  --ss-surface-raised: #161b22;
+  --ss-border:         rgba(255, 255, 255, 0.16);
+  --ss-accent:         #ff8a4a;
+  --ss-on-accent:      #0b0f14;
+  --ss-text-soft:      #b9c1cc;
+  --ss-shadow-md:      0 10px 30px rgba(0, 0, 0, 0.45);
+
+  /* Page tokens */
+  --ink-900: #f4f6f8;
+  --ink-800: #e2e6eb;
+  --ink-700: #c9cfd6;
+  --ink-600: #a8b0ba;
+  --ink-500: #8a93a0;
+  --ink-400: #6a7380;
+  --ink-300: #4a525c;
+  --ink-200: #2b323a;
+  --ink-100: #1a1f27;
+  --ink-50:  #12161c;
+
+  --paper:       #0b0f14;
+  --surface:     #0b0f14;
+  --surface-alt: #161b22;
+
+  --line:      rgba(255, 255, 255, 0.10);
+  --line-soft: rgba(255, 255, 255, 0.06);
+
+  /* Card tint backgrounds — darkened so the icon badges and
+     accent-colored glyphs keep enough contrast at night */
+  --tint-blue:   #182238;
+  --tint-orange: #2a1c12;
+  --tint-gold:   #2b2210;
+  --tint-plum:   #1f1930;
+
+  background: var(--paper);
+  color: var(--ink-800);
+}
+
+[data-theme="dark"] .home .home-nav {
+  background: rgba(11, 15, 20, 0.85);
+  border-bottom-color: var(--line-soft);
+}
+
+[data-theme="dark"] .home .home-nav__links {
+  background: #161b22;
+}
+
+[data-theme="dark"] .home .home-nav__links ul a,
+[data-theme="dark"] .home .home-nav__anchor {
+  color: #f4f6f8;
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="dark"] .home .home-nav__links::before {
+  color: #f4f6f8;
+}
+
+[data-theme="dark"] .home .home-nav__login {
+  background: #f4f6f8;
+  color: #0b0f14 !important;
+}
+
+[data-theme="dark"] .home .btn--primary {
+  background: #f4f6f8;
+  color: #0b0f14;
+}
+
+[data-theme="dark"] .home .btn--ghost {
+  color: #f4f6f8;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="dark"] .home .btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="dark"] .home .hero-visual__figure {
+  background: var(--surface-alt);
+}
+
+/* The photos themselves don't change — only the frame around
+   them does. A slightly heavier inset tint keeps the panels
+   from looking blown-out against the dark page background. */
+[data-theme="dark"] .home .hero-visual__image--primary,
+[data-theme="dark"] .home .hero-visual__image--secondary {
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.18);
+}
+
+[data-theme="dark"] .home .home-footer {
+  background: #0f141b;
+  border-top-color: rgba(255, 255, 255, 0.06);
+}
+
+
+/* =========================================================
+   17. SMOOTH SCROLL  (only while Home is mounted)
+   ========================================================= */
+html:has(.home) {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--anchor-offset, 90px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:has(.home) {
+    scroll-behavior: auto;
+  }
+}
