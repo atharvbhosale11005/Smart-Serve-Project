@@ -9,6 +9,40 @@ import {
 } from "../Services/adminService";
 import "./AdminSettings.css";
 
+/* ===== Embedded Crisp SVG Icons ===== */
+const Icons = {
+  Eye: () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  ),
+  EyeOff: () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+      <line x1="1" y1="1" x2="23" y2="23" />
+    </svg>
+  ),
+  User: () => (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
+    </svg>
+  ),
+  Lock: () => (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+    </svg>
+  ),
+  Settings: () => (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="3" />
+      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+    </svg>
+  )
+};
+
 function AdminSettings() {
   const navigate = useNavigate();
   const [profile, setProfile] = useState({
@@ -21,7 +55,6 @@ function AdminSettings() {
   const [loading, setLoading] = useState(true);
   const [updatingProfile, setUpdatingProfile] = useState(false);
 
-  // Password state
   const [passwords, setPasswords] = useState({
     currentPassword: "",
     newPassword: "",
@@ -29,8 +62,14 @@ function AdminSettings() {
   });
   const [changingPass, setChangingPass] = useState(false);
 
+  // Show/Hide Password States
+  const [showCurrent, setShowCurrent] = useState(false);
+  const [showNew, setShowNew] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+
   useEffect(() => {
     loadProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadProfile = async () => {
@@ -43,9 +82,9 @@ function AdminSettings() {
       }
       const res = await getAdminProfile(token);
       if (res.status === "success") {
-        setProfile(res.data);
+        setProfile(res.data || {});
       } else {
-        toast.error(res.data || "Failed to load profile");
+        toast.error(typeof res.data === "string" ? res.data : "Failed to load profile");
       }
     } catch (err) {
       console.error(err);
@@ -61,26 +100,30 @@ function AdminSettings() {
       toast.warning("Full name is required");
       return;
     }
-
     try {
       setUpdatingProfile(true);
       const token = sessionStorage.getItem("token");
-      const res = await updateAdminProfile({
-        full_name: profile.full_name.trim(),
-        phone: profile.phone ? profile.phone.trim() : null
-      }, token);
+      const res = await updateAdminProfile(
+        {
+          full_name: profile.full_name.trim(),
+          phone: profile.phone ? profile.phone.trim() : null
+        },
+        token
+      );
 
       if (res.status === "success") {
         toast.success("Admin profile updated successfully");
-        // Update local session
         const currentLocal = JSON.parse(sessionStorage.getItem("user") || "{}");
-        sessionStorage.setItem("user", JSON.stringify({
-          ...currentLocal,
-          fullName: profile.full_name.trim(),
-          full_name: profile.full_name.trim()
-        }));
+        sessionStorage.setItem(
+          "user",
+          JSON.stringify({
+            ...currentLocal,
+            fullName: profile.full_name.trim(),
+            full_name: profile.full_name.trim()
+          })
+        );
       } else {
-        toast.error(res.data || "Update failed");
+        toast.error(typeof res.data === "string" ? res.data : "Update failed");
       }
     } catch (err) {
       console.error(err);
@@ -92,6 +135,8 @@ function AdminSettings() {
 
   const handleChangePassword = async (e) => {
     e.preventDefault();
+    
+    // Validations matching backend requirements
     if (!passwords.currentPassword) {
       toast.warning("Please enter your current password");
       return;
@@ -100,15 +145,25 @@ function AdminSettings() {
       toast.error("New passwords do not match");
       return;
     }
-    if (passwords.newPassword.length < 4) {
-      toast.warning("Password should be at least 4 characters");
+    if (passwords.newPassword.length < 6) {
+      toast.warning("Password must be at least 6 characters");
       return;
     }
 
     try {
       setChangingPass(true);
       const token = sessionStorage.getItem("token");
-      const res = await changeAdminPassword(passwords, token);
+      
+      // FIX: Send confirmPassword since backend strictly checks for it
+      const res = await changeAdminPassword(
+        {
+          currentPassword: passwords.currentPassword,
+          newPassword: passwords.newPassword,
+          confirmPassword: passwords.confirmPassword
+        },
+        token
+      );
+
       if (res.status === "success") {
         toast.success("Password changed successfully");
         setPasswords({
@@ -117,7 +172,9 @@ function AdminSettings() {
           confirmPassword: ""
         });
       } else {
-        toast.error(res.data || "Failed to change password");
+        toast.error(
+          typeof res.data === "string" ? res.data : "Failed to change password"
+        );
       }
     } catch (err) {
       console.error(err);
@@ -130,7 +187,13 @@ function AdminSettings() {
   const formatDate = (dateStr) => {
     if (!dateStr) return "N/A";
     const d = new Date(dateStr);
-    return isNaN(d.getTime()) ? dateStr : d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+    return isNaN(d.getTime())
+      ? dateStr
+      : d.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        });
   };
 
   return (
@@ -139,14 +202,11 @@ function AdminSettings() {
 
       <main className="dashboard-main">
         <div className="dashboard-content">
-
+          
           {/* Header */}
-          <div className="page-header d-flex justify-content-between align-items-center mb-4">
+          <div className="page-header d-flex flex-wrap gap-3 justify-content-between align-items-center mb-4">
             <div>
-              <h2 className="fw-bold mb-1">
-                <i className="bi bi-gear-fill text-danger me-2"></i>
-                Admin Profile & System Settings
-              </h2>
+              <h2 className="fw-bold mb-1">Admin Profile & System Settings</h2>
               <p className="text-muted mb-0">
                 Manage your administrator account credentials, platform security, and system configuration
               </p>
@@ -159,15 +219,14 @@ function AdminSettings() {
               <p className="mt-2 text-muted">Loading settings...</p>
             </div>
           ) : (
-            <div className="row g-4">
+            <div className="row g-4 settings-grid">
+              
               {/* Left Column: Admin Profile */}
               <div className="col-lg-6">
-                <div className="card shadow-sm border-0 mb-4">
-                  <div className="card-header bg-white py-3">
-                    <h5 className="mb-0 fw-bold d-flex align-items-center gap-2">
-                      <i className="bi bi-person-fill text-danger"></i>
-                      Administrator Profile
-                    </h5>
+                <div className="card shadow-sm border-0 settings-card h-100">
+                  <div className="card-header bg-white py-3 d-flex align-items-center gap-2">
+                    <div className="icon-box bg-soft-red text-danger"><Icons.User /></div>
+                    <h5 className="mb-0 fw-bold">Administrator Profile</h5>
                   </div>
                   <div className="card-body p-4">
                     <form onSubmit={handleUpdateProfile}>
@@ -176,7 +235,7 @@ function AdminSettings() {
                         <input
                           type="email"
                           className="form-control bg-light"
-                          value={profile.email}
+                          value={profile.email || ""}
                           disabled
                         />
                         <small className="text-muted">Email cannot be changed directly.</small>
@@ -187,7 +246,7 @@ function AdminSettings() {
                         <input
                           type="text"
                           className="form-control"
-                          value={profile.full_name}
+                          value={profile.full_name || ""}
                           onChange={(e) => setProfile({ ...profile, full_name: e.target.value })}
                           required
                         />
@@ -207,22 +266,19 @@ function AdminSettings() {
                       <div className="mb-3">
                         <label className="form-label small fw-bold">Account Role</label>
                         <div>
-                          <span className="badge bg-danger px-3 py-2 fs-6">
-                            <i className="bi bi-shield-lock-fill me-1"></i> {profile.role_name} (Superuser)
+                          <span className="badge bg-danger px-3 py-2 fs-6 role-badge">
+                            <i className="bi bi-shield-lock-fill me-1"></i>
+                            {profile.role_name || "ADMIN"} (Superuser)
                           </span>
                         </div>
                       </div>
 
                       <div className="mb-4">
                         <label className="form-label small fw-bold">Admin Since</label>
-                        <p className="text-muted mb-0">{formatDate(profile.created_at)}</p>
+                        <p className="text-muted mb-0 fw-semibold">{formatDate(profile.created_at)}</p>
                       </div>
 
-                      <button
-                        type="submit"
-                        className="btn btn-danger px-4"
-                        disabled={updatingProfile}
-                      >
+                      <button type="submit" className="btn btn-danger px-4 action-btn" disabled={updatingProfile}>
                         {updatingProfile ? "Saving Changes..." : "Update Profile"}
                       </button>
                     </form>
@@ -232,101 +288,113 @@ function AdminSettings() {
 
               {/* Right Column: Security & System Config */}
               <div className="col-lg-6">
-                {/* Change Password Card */}
-                <div className="card shadow-sm border-0 mb-4">
-                  <div className="card-header bg-white py-3">
-                    <h5 className="mb-0 fw-bold d-flex align-items-center gap-2">
-                      <i className="bi bi-key-fill text-danger"></i>
-                      Change Admin Password
-                    </h5>
+                
+                {/* Change Password */}
+                <div className="card shadow-sm border-0 settings-card mb-4">
+                  <div className="card-header bg-white py-3 d-flex align-items-center gap-2">
+                    <div className="icon-box bg-soft-yellow text-warning"><Icons.Lock /></div>
+                    <h5 className="mb-0 fw-bold">Change Admin Password</h5>
                   </div>
                   <div className="card-body p-4">
                     <form onSubmit={handleChangePassword}>
+                      
                       <div className="mb-3">
                         <label className="form-label small fw-bold">Current Password</label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          value={passwords.currentPassword}
-                          onChange={(e) => setPasswords({ ...passwords, currentPassword: e.target.value })}
-                          required
-                        />
+                        <div className="input-group password-group">
+                          <input
+                            type={showCurrent ? "text" : "password"}
+                            className="form-control"
+                            value={passwords.currentPassword}
+                            onChange={(e) => setPasswords({ ...passwords, currentPassword: e.target.value })}
+                            required
+                          />
+                          <button type="button" className="btn btn-outline-secondary" onClick={() => setShowCurrent(!showCurrent)}>
+                            {showCurrent ? <Icons.EyeOff /> : <Icons.Eye />}
+                          </button>
+                        </div>
                       </div>
 
                       <div className="mb-3">
                         <label className="form-label small fw-bold">New Password</label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          value={passwords.newPassword}
-                          onChange={(e) => setPasswords({ ...passwords, newPassword: e.target.value })}
-                          required
-                        />
+                        <div className="input-group password-group">
+                          <input
+                            type={showNew ? "text" : "password"}
+                            className="form-control"
+                            value={passwords.newPassword}
+                            onChange={(e) => setPasswords({ ...passwords, newPassword: e.target.value })}
+                            required
+                          />
+                          <button type="button" className="btn btn-outline-secondary" onClick={() => setShowNew(!showNew)}>
+                            {showNew ? <Icons.EyeOff /> : <Icons.Eye />}
+                          </button>
+                        </div>
+                        <small className="text-muted">Must be at least 6 characters.</small>
                       </div>
 
                       <div className="mb-4">
                         <label className="form-label small fw-bold">Confirm New Password</label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          value={passwords.confirmPassword}
-                          onChange={(e) => setPasswords({ ...passwords, confirmPassword: e.target.value })}
-                          required
-                        />
+                        <div className="input-group password-group">
+                          <input
+                            type={showConfirm ? "text" : "password"}
+                            className="form-control"
+                            value={passwords.confirmPassword}
+                            onChange={(e) => setPasswords({ ...passwords, confirmPassword: e.target.value })}
+                            required
+                          />
+                          <button type="button" className="btn btn-outline-secondary" onClick={() => setShowConfirm(!showConfirm)}>
+                            {showConfirm ? <Icons.EyeOff /> : <Icons.Eye />}
+                          </button>
+                        </div>
                       </div>
 
-                      <button
-                        type="submit"
-                        className="btn btn-outline-danger px-4"
-                        disabled={changingPass}
-                      >
+                      <button type="submit" className="btn btn-outline-danger px-4 action-btn" disabled={changingPass}>
                         {changingPass ? "Updating..." : "Update Password"}
                       </button>
                     </form>
                   </div>
                 </div>
 
-                {/* Platform Configuration Info Card */}
-                <div className="card shadow-sm border-0">
-                  <div className="card-header bg-white py-3">
-                    <h5 className="mb-0 fw-bold d-flex align-items-center gap-2">
-                      <i className="bi bi-sliders text-danger"></i>
-                      SmartServe Platform Settings
-                    </h5>
+                {/* Platform Settings */}
+                <div className="card shadow-sm border-0 settings-card">
+                  <div className="card-header bg-white py-3 d-flex align-items-center gap-2">
+                    <div className="icon-box bg-soft-blue text-primary"><Icons.Settings /></div>
+                    <h5 className="mb-0 fw-bold">SmartServe Platform Settings</h5>
                   </div>
                   <div className="card-body p-4">
                     <div className="d-flex flex-column gap-3">
-                      <div className="d-flex justify-content-between align-items-center border-bottom pb-2">
+                      
+                      <div className="setting-row">
                         <div>
                           <strong>Worker Dispatch Algorithm</strong>
                           <p className="text-muted small mb-0">Haversine GPS Nearest Available Match</p>
                         </div>
-                        <span className="badge bg-success">Active</span>
+                        <span className="custom-badge badge-approved">Active</span>
                       </div>
 
-                      <div className="d-flex justify-content-between align-items-center border-bottom pb-2">
+                      <div className="setting-row">
                         <div>
                           <strong>Max Matching Radius</strong>
                           <p className="text-muted small mb-0">Search limit for nearby technicians</p>
                         </div>
-                        <span className="badge bg-light text-dark border">5.0 KM</span>
+                        <span className="custom-badge badge-neutral">5.0 KM</span>
                       </div>
 
-                      <div className="d-flex justify-content-between align-items-center border-bottom pb-2">
+                      <div className="setting-row">
                         <div>
                           <strong>Live Tracking Updates</strong>
                           <p className="text-muted small mb-0">Worker GPS live tracker</p>
                         </div>
-                        <span className="badge bg-success">Enabled</span>
+                        <span className="custom-badge badge-approved">Enabled</span>
                       </div>
 
-                      <div className="d-flex justify-content-between align-items-center">
+                      <div className="setting-row border-0 pb-0">
                         <div>
                           <strong>Database Connection</strong>
                           <p className="text-muted small mb-0">MySQL Connection Pool</p>
                         </div>
-                        <span className="badge bg-success">Connected</span>
+                        <span className="custom-badge badge-approved">Connected</span>
                       </div>
+
                     </div>
                   </div>
                 </div>
@@ -334,7 +402,6 @@ function AdminSettings() {
               </div>
             </div>
           )}
-
         </div>
       </main>
     </div>

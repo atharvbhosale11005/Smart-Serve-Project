@@ -415,7 +415,7 @@ function WorkerDashboard() {
                                     title="Refresh dashboard"
                                     aria-label="Refresh dashboard"
                                 >
-                                    <i className="bi bi-arrow-clockwise"></i>
+                                    <i className="bi bi-arrow-clockwise me-2"></i> Refresh
                                 </button>
 
                             </div>

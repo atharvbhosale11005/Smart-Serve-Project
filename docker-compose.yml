@@ -3,17 +3,13 @@ services:
   mysql:
     image: mysql:8.0
     restart: unless-stopped
-
     environment:
       MYSQL_ROOT_PASSWORD: atharv
       MYSQL_DATABASE: smartserve
-
     ports:
       - "3307:3306"
-
     volumes:
       - smartserve_mysql_data:/var/lib/mysql
-
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-patharv"]
       interval: 5s
@@ -24,16 +20,16 @@ services:
   backend:
     build:
       context: ./Backend
-      dockerfile: Dockerfile
-
+      dockerfile: dockerfile
     restart: unless-stopped
-
-    env_file:
-      - ./Backend/.env
-
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: atharv
+      DB_NAME: smartserve
     ports:
       - "3000:3000"
-
     depends_on:
       mysql:
         condition: service_healthy
@@ -41,13 +37,10 @@ services:
   frontend:
     build:
       context: ./Frontend/app
-      dockerfile: Dockerfile
-
+      dockerfile: dockerfile
     restart: unless-stopped
-
     ports:
       - "5173:80"
-
     depends_on:
       - backend
 

@@ -1,14 +1,12 @@
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { LoginContext } from "../App";
 import AdminNavbar from "../components/AdminNavbar";
 import { getAdminDashboard } from "../Services/adminService";
 import "./AdminDashboard.css";
 
 function AdminDashboard() {
   const navigate = useNavigate();
-  const { logout } = useContext(LoginContext);
   const [userName, setUserName] = useState("Admin");
   const [loading, setLoading] = useState(true);
   const [dashboard, setDashboard] = useState({
@@ -32,6 +30,7 @@ function AdminDashboard() {
       setUserName(userData.fullName || userData.full_name || "Admin");
     }
     loadDashboardData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadDashboardData = async () => {
@@ -44,13 +43,29 @@ function AdminDashboard() {
       }
       const response = await getAdminDashboard(token);
       if (response.status === "success") {
-        setDashboard(response.data);
+        const d = response.data || {};
+        setDashboard({
+          totalUsers: d.totalUsers ?? 0,
+          totalWorkers: d.totalWorkers ?? 0,
+          pendingApprovals: d.pendingApprovals ?? 0,
+          availableWorkers: d.availableWorkers ?? 0,
+          activeServices: d.activeServices ?? 0,
+          activeCategories: d.activeCategories ?? 0,
+          totalRequests: d.totalRequests ?? 0,
+          activeRequests: d.activeRequests ?? 0,
+          completedRequests: d.completedRequests ?? 0,
+          cancelledRequests: d.cancelledRequests ?? 0,
+          totalRevenue: d.totalRevenue ?? 0,
+          recentActivities: Array.isArray(d.recentActivities) ? d.recentActivities : []
+        });
       } else {
-        toast.error(response.data || "Failed to load dashboard data");
+        toast.error(typeof response.data === "string" ? response.data : "Failed to load dashboard data");
       }
     } catch (error) {
       console.error("ADMIN DASHBOARD LOAD ERROR:", error);
-      toast.error(error.response?.data?.data || "Unable to connect to server");
+      toast.error(
+        error?.response?.data?.data || "Unable to connect to server"
+      );
     } finally {
       setLoading(false);
     }
@@ -61,7 +76,8 @@ function AdminDashboard() {
     if (s === "COMPLETED") return "badge bg-success";
     if (s === "PENDING") return "badge bg-warning text-dark";
     if (s === "CANCELLED") return "badge bg-danger";
-    if (s === "IN_PROGRESS" || s === "ACCEPTED" || s === "ARRIVED") return "badge bg-primary";
+    if (s === "IN_PROGRESS" || s === "ACCEPTED" || s === "ARRIVED")
+      return "badge bg-primary";
     return "badge bg-secondary";
   };
 
@@ -71,8 +87,13 @@ function AdminDashboard() {
     if (isNaN(date.getTime())) return dateStr;
     return date.toLocaleString(undefined, {
       dateStyle: "medium",
-      timeStyle: "short",
+      timeStyle: "short"
     });
+  };
+
+  const formatCurrency = (val) => {
+    const n = Number(val);
+    return Number.isFinite(n) ? n.toLocaleString() : "0";
   };
 
   const stats = [
@@ -98,13 +119,16 @@ function AdminDashboard() {
       value: dashboard.pendingApprovals,
       label: "Pending Approvals",
       subtext: "Worker verifications",
-      badge: dashboard.pendingApprovals > 0 ? `${dashboard.pendingApprovals} Action Required` : null,
+      badge:
+        dashboard.pendingApprovals > 0
+          ? `${dashboard.pendingApprovals} Action Required`
+          : null,
       onClick: () => navigate("/admin/workers")
     },
     {
       icon: "bi-currency-rupee",
       color: "green",
-      value: `₹${Number(dashboard.totalRevenue).toLocaleString()}`,
+      value: `₹${formatCurrency(dashboard.totalRevenue)}`,
       label: "Total Revenue",
       subtext: `${dashboard.completedRequests} completed jobs`,
       onClick: () => navigate("/admin/analytics")
@@ -179,12 +203,12 @@ function AdminDashboard() {
 
       <main className="dashboard-main">
         <div className="dashboard-content">
-          
           {/* Welcome Banner */}
           <div className="welcome-section admin-welcome">
             <div>
               <h1 className="display-6 fw-bold">
-                Welcome back, <span className="admin-name-highlight">{userName}</span>! 🛡️
+                Welcome back,{" "}
+                <span className="admin-name-highlight">{userName}</span>! 🛡️
               </h1>
               <p className="text-muted">
                 System Overview & Real-Time Platform Management Hub
@@ -210,21 +234,30 @@ function AdminDashboard() {
 
           {/* Pending Approval Alert if any */}
           {dashboard.pendingApprovals > 0 && (
-            <div className="alert alert-warning admin-approval-alert d-flex align-items-center justify-content-between mb-4 shadow-sm" role="alert">
+            <div
+              className="alert alert-warning admin-approval-alert d-flex align-items-center justify-content-between mb-4 shadow-sm"
+              role="alert"
+            >
               <div className="d-flex align-items-center gap-3">
                 <div className="approval-alert-icon">
                   <i className="bi bi-exclamation-triangle-fill"></i>
                 </div>
                 <div>
-                  <strong>{dashboard.pendingApprovals} Worker Application(s) Pending Review!</strong>
-                  <p className="mb-0 text-muted small">New service professionals are waiting for admin approval before they can take service requests.</p>
+                  <strong>
+                    {dashboard.pendingApprovals} Worker Application(s) Pending Review!
+                  </strong>
+                  <p className="mb-0 text-muted small">
+                    New service professionals are waiting for admin approval before
+                    they can take service requests.
+                  </p>
                 </div>
               </div>
               <button
                 className="btn btn-sm btn-dark px-3 fw-bold"
                 onClick={() => navigate("/admin/workers")}
               >
-                Review Applications <i className="bi bi-arrow-right ms-1"></i>
+                Review Applications{" "}
+                <i className="bi bi-arrow-right ms-1"></i>
               </button>
             </div>
           )}
@@ -254,12 +287,17 @@ function AdminDashboard() {
           <div className="row g-3 mb-4">
             {secondaryStats.map((item, idx) => (
               <div className="col-lg-3 col-sm-6" key={idx}>
-                <div className="secondary-stat-card" onClick={() => navigate(item.link)}>
+                <div
+                  className="secondary-stat-card"
+                  onClick={() => navigate(item.link)}
+                >
                   <div className="d-flex align-items-center gap-3">
                     <i className={`bi ${item.icon} sec-icon`}></i>
                     <div>
                       <h4 className="mb-0 fw-bold">{loading ? "..." : item.count}</h4>
-                      <p className="mb-0 text-dark fw-semibold small">{item.title}</p>
+                      <p className="mb-0 text-dark fw-semibold small">
+                        {item.title}
+                      </p>
                       <small className="text-muted">{item.sub}</small>
                     </div>
                   </div>
@@ -320,19 +358,28 @@ function AdminDashboard() {
                               </td>
                               <td>
                                 <strong className="d-block">{act.service_name}</strong>
-                                <small className="text-muted">{formatDate(act.created_at)}</small>
+                                <small className="text-muted">
+                                  {formatDate(act.created_at)}
+                                </small>
                               </td>
                               <td>{act.customer_name || "Guest"}</td>
                               <td>
                                 {act.worker_name ? (
-                                  <span className="text-dark fw-semibold">{act.worker_name}</span>
+                                  <span className="text-dark fw-semibold">
+                                    {act.worker_name}
+                                  </span>
                                 ) : (
-                                  <span className="badge bg-light text-muted border">Unassigned</span>
+                                  <span className="badge bg-light text-muted border">
+                                    Unassigned
+                                  </span>
                                 )}
                               </td>
                               <td>
                                 <span className="fw-bold text-dark">
-                                  ₹{act.final_price || act.estimated_price || 0}
+                                  ₹
+                                  {formatCurrency(
+                                    act.final_price || act.estimated_price || 0
+                                  )}
                                 </span>
                               </td>
                               <td>
@@ -390,17 +437,18 @@ function AdminDashboard() {
                       </span>
                     </div>
                     <div className="d-flex justify-content-between small text-muted">
-                      <span>Dispatch Engine: <strong>Active</strong></span>
-                      <span>GPS Radius: <strong>5.0 KM</strong></span>
+                      <span>
+                        Dispatch Engine: <strong>Active</strong>
+                      </span>
+                      <span>
+                        GPS Radius: <strong>5.0 KM</strong>
+                      </span>
                     </div>
                   </div>
-
                 </div>
               </div>
             </div>
-
           </div>
-
         </div>
       </main>
     </div>

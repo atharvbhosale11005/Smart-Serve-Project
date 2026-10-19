@@ -13,16 +13,22 @@
 /* Main content area */
 .history-main {
   flex: 1;
-  margin-left: 240px;
   padding: 2rem 2.5rem;
-  transition: margin-left 0.3s ease;
+  transition: margin-left 0.3s ease, margin-right 0.3s ease;
   max-width: 1400px;
   background: #f8faff;
+  width: 100%;
+  
+  /* CENTER MAGIC: 
+     Calculates the exact margin needed to center the 1400px container. 
+     If the screen is small, it defaults to 240px to clear the sidebar. */
+  margin-left: max(240px, calc((100vw - 1400px) / 2));
+  margin-right: auto;
 }
 
 /* Adjust margin when sidebar is collapsed */
 .user-navbar.collapsed ~ .history-main {
-  margin-left: 76px;
+  margin-left: max(76px, calc((100vw - 1400px) / 2));
 }
 
 /* =====================================================
@@ -372,9 +378,13 @@
 
 /* Tablets and smaller laptops */
 @media (max-width: 992px) {
-  .history-main {
-    padding: 1.5rem;
+  .history-main,
+  .user-navbar.collapsed ~ .history-main {
+    /* Remove the centering logic and take full width on mobile */
     margin-left: 0;
+    margin-right: 0;
+    padding: 1.5rem;
+    max-width: 100%;
   }
 
   .history-header {
@@ -570,6 +580,7 @@
   .history-main {
     margin-left: 0 !important;
     padding: 1rem;
+    max-width: 100%;
   }
 
   .history-card {
